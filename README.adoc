@@ -23,3 +23,17 @@ Experimental repo to assess complexity of building a native image only using 'or
  ./app/build/native/nativeCompile/my-app
 
 NOTE: 'app' module also includes 'application' to generate runnable distributions, but that's not required for the native build.
+
+== Testing
+
+One failing and one successful test are included to validate https://junit.org/junit5/[Junit 5] and https://assertj.github.io/doc/[AssertJ].
+
+To run tests in JVM:
+
+ ./gradlew :app:test
+
+To only run tests in native image (ignore `test` or else the native test compile does not run):
+
+ ./gradlew :app:nativeTest -x test
+
+The later will generate a binary with the tests embedded in _./app/build/native/nativeTestCompile/my-app-tests_
