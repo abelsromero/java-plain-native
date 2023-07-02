@@ -1,0 +1,25 @@
+= Plain Java native
+
+Experimental repo to assess complexity of building a native image only using 'org.graalvm.buildtools.native'.
+
+== Setup
+
+. Install Graal (using Liberica NIK to simplify steps)
+
+ sdk i java 22.3.2.r17-nik
+
+. Create Gradle project
+
+ gradle init
+
+. Add plugin and settings repo https://graalvm.github.io/native-build-tools/latest/gradle-plugin.html#_adding_the_plugin
+
+. Compile
+
+ ./gradlew :app:nativeCompile
+
+. Run 🚀
+
+ ./app/build/native/nativeCompile/my-app
+
+NOTE: 'app' module also includes 'application' to generate runnable distributions, but that's not required for the native build.
