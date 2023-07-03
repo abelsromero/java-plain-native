@@ -1,0 +1,51 @@
+package org.abelsromero.demo;
+
+import com.beust.jcommander.Parameter;
+
+import java.util.ArrayList;
+import java.util.List;
+
+final class Options {
+
+    @Parameter
+    private List<String> parameters = new ArrayList<>();
+
+    @Parameter(names = {"-n", "--name"}, required = true, description = "Who to greet", order = 1)
+    private String name;
+
+    @Parameter(names = {"-u", "--uppercase"}, description = "Greet in Uppercase", order = 2)
+    private boolean uppercase = false;
+
+    @Parameter(names = {"-l", "--lowercase"}, description = "Greet in lowercase", order = 3)
+    private boolean lowercase = false;
+
+    @Parameter(names = "-debug", description = "Debug mode", order = 4)
+    private boolean debug = false;
+
+    @Parameter(names = {"-h", "--help"}, help = true, description = "Show this message", order = 5)
+    private boolean help = false;
+
+    public List<String> getParameters() {
+        return parameters;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public boolean isUppercase() {
+        return uppercase;
+    }
+
+    public boolean isLowercase() {
+        return lowercase;
+    }
+
+    public boolean isDebug() {
+        return debug;
+    }
+
+    public boolean isHelp() {
+        return help;
+    }
+}
