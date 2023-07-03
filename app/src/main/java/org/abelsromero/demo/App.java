@@ -3,12 +3,23 @@
  */
 package org.abelsromero.demo;
 
+import com.beust.jcommander.JCommander;
+import com.beust.jcommander.UnixStyleUsageFormatter;
+
 public class App {
-    public String getGreeting() {
-        return "Hello World!";
-    }
 
     public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+        final Options options = new Options();
+        final JCommander jc = new OptionsParser()
+                .parse(options, args);
+
+        if (options.isHelp()) {
+            jc.setUsageFormatter(new UnixStyleUsageFormatter(jc));
+            jc.usage();
+        } else {
+            System.out.println(new Greeter(options).getMessage());
+            if (options.isDebug() && !options.getParameters().isEmpty())
+                System.out.println("Ignored parameters: " + options.getParameters());
+        }
     }
 }
