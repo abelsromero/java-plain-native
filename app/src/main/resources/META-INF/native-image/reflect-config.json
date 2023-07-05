@@ -26,6 +26,18 @@
     ]
   },
   {
+    "name": "com.beust.jcommander.converters.IntegerConverter",
+    "queryAllDeclaredConstructors": true,
+    "methods": [
+      {
+        "name": "<init>",
+        "parameterTypes": [
+          "java.lang.String"
+        ]
+      }
+    ]
+  },
+  {
     "name": "com.beust.jcommander.converters.StringConverter",
     "queryAllDeclaredConstructors": true,
     "methods": [

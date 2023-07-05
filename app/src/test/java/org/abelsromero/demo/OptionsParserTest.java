@@ -6,6 +6,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
 
@@ -61,7 +64,22 @@ class OptionsParserTest {
         assertThat(options.isLowercase()).isTrue();
     }
 
-    private String[] minimalArgs(String value) {
-        return new String[]{"-n", "Arthur", value};
+    @ParameterizedTest
+    @ValueSource(strings = {"-r", "--repeat"})
+    void shouldParseRepeatOption(String option) {
+        final Options options = new Options();
+        new OptionsParser()
+                .parse(options, minimalArgs(option, "4"));
+
+        assertThat(options.getRepeat()).isEqualTo(4);
+    }
+
+    private String[] minimalArgs(String... values) {
+        final List<String> args = new ArrayList<>();
+        args.add("-n");
+        args.add("Arthur");
+        for (String value : values)
+            args.add(value);
+        return args.toArray(new String[args.size()]);
     }
 }
