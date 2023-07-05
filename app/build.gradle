@@ -1,19 +1,11 @@
 plugins {
-    id 'java'
     id 'application'
     id 'org.graalvm.buildtools.native' version '0.9.23'
 }
 
-repositories {
-    mavenCentral()
-}
-
 dependencies {
     implementation 'com.beust:jcommander:1.82'
-
-    testImplementation platform("org.junit:junit-bom:5.9.3")
-    testImplementation "org.junit.jupiter:junit-jupiter"
-    testImplementation 'org.assertj:assertj-core:3.24.2'
+    implementation project(':configuration')
 }
 
 java {

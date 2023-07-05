@@ -5,6 +5,8 @@ package org.abelsromero.demo;
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.UnixStyleUsageFormatter;
+import org.abelsromero.demo.config.Configuration;
+import org.abelsromero.demo.config.ConfigurationInitializer;
 
 public class App {
 
@@ -17,9 +19,42 @@ public class App {
             jc.setUsageFormatter(new UnixStyleUsageFormatter(jc));
             jc.usage();
         } else {
+            System.out.println("----");
+            final Configuration config = readConfiguration(options);
+            System.out.println(config);
+
+            // TODO pass Configuration instead of options
             System.out.println(new Greeter(options).getMessage());
             if (options.isDebug() && !options.getParameters().isEmpty())
                 System.out.println("Ignored parameters: " + options.getParameters());
         }
+    }
+
+    // TODO merge options correctly
+    private static Configuration readConfiguration(Options options) {
+        boolean uppercase = false;
+        boolean lowercase = false;
+        int repeat = 1;
+        if (!isEmpty(options.getConfig())) {
+            Configuration candidate = ConfigurationInitializer.init(options.getConfig());
+            // no need else, already false by default
+            if (candidate.uppercase()) {
+                uppercase = true;
+            }
+            if (candidate.lowercase()) {
+                lowercase = true;
+            }
+            if (candidate.repeat() > 0) {
+                repeat = candidate.repeat();
+            } else {
+                repeat = options.getRepeat();
+            }
+        }
+        return new Configuration(uppercase, lowercase, repeat);
+    }
+
+
+    private static boolean isEmpty(String value) {
+        return value == null || value.length() == 0;
     }
 }
