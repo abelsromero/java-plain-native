@@ -17,18 +17,20 @@ class ReflectionMock<T> {
     }
 
     void mockBoolean(String field, Boolean value) {
-        try {
-            final Field declaredField = clazz.getDeclaredField(field);
-            declaredField.setAccessible(true);
-            declaredField.set(instance, value);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        setValue(field, value);
+    }
+
+    public void mockInteger(String field, Integer value) {
+        setValue(field, value);
     }
 
     void mockString(String field, String value) {
+        setValue(field, value);
+    }
+
+    private void setValue(String field, Object value) {
         try {
-            Field declaredField = clazz.getDeclaredField(field);
+            final Field declaredField = clazz.getDeclaredField(field);
             declaredField.setAccessible(true);
             declaredField.set(instance, value);
         } catch (Exception e) {

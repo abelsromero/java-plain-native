@@ -35,11 +35,20 @@ class GreeterTest {
         assertThat(message).isEqualTo("hello arthur!!");
     }
 
+    @Test
+    void shouldGreetWithRepeats() {
+        final var options = options();
+        options.mockInteger("repeat", 4);
+
+        final String message = new Greeter(options.getInstance()).getMessage();
+
+        assertThat(message).isEqualTo("Hello Arthur!!\n" + "Hello Arthur!!\n" + "Hello Arthur!!\n" + "Hello Arthur!!");
+    }
+
     public static ReflectionMock<Options> options() {
         final Options options = new Options();
         final ReflectionMock<Options> mock = ReflectionMock.mock(options);
         mock.mockString("name", "Arthur");
         return mock;
     }
-
 }

@@ -19,10 +19,13 @@ final class Options {
     @Parameter(names = {"-l", "--lowercase"}, description = "Greet in lowercase", order = 3)
     private boolean lowercase = false;
 
-    @Parameter(names = "-debug", description = "Debug mode", order = 4)
+    @Parameter(names = {"-r", "--repeat"}, description = "Greet many times", order = 4)
+    private int repeat = 1;
+
+    @Parameter(names = "--debug", description = "Debug mode", order = 5)
     private boolean debug = false;
 
-    @Parameter(names = {"-h", "--help"}, help = true, description = "Show this message", order = 5)
+    @Parameter(names = {"-h", "--help"}, help = true, description = "Show this message", order = 6)
     private boolean help = false;
 
     public List<String> getParameters() {
@@ -39,6 +42,10 @@ final class Options {
 
     public boolean isLowercase() {
         return lowercase;
+    }
+
+    public int getRepeat() {
+        return repeat;
     }
 
     public boolean isDebug() {

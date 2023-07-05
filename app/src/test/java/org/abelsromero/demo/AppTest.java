@@ -32,6 +32,8 @@ public class AppTest {
         assertThat(outputLines[2]).contains("-n, --name");
         assertThat(outputLines[3]).contains("-u, --uppercase");
         assertThat(outputLines[4]).contains("-l, --lowercase");
-        assertThat(outputLines[6]).contains("-h, --help");
+        assertThat(outputLines[5]).contains("-r, --repeat");
+        assertThat(outputLines[6]).contains("--debug");
+        assertThat(outputLines[7]).contains("-h, --help");
     }
 }
