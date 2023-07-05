@@ -67,5 +67,15 @@
         ]
       }
     ]
+  },
+  {
+    "name": "com.beust.jcommander.validators.PositiveInteger",
+    "methods": [
+      {
+        "name": "<init>",
+        "parameterTypes": [
+        ]
+      }
+    ]
   }
 ]

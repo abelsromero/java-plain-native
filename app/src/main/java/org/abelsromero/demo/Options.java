@@ -1,6 +1,7 @@
 package org.abelsromero.demo;
 
 import com.beust.jcommander.Parameter;
+import com.beust.jcommander.validators.PositiveInteger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +20,7 @@ final class Options {
     @Parameter(names = {"-l", "--lowercase"}, description = "Greet in lowercase", order = 3)
     private boolean lowercase = false;
 
-    @Parameter(names = {"-r", "--repeat"}, description = "Greet many times", order = 4)
+    @Parameter(names = {"-r", "--repeat"}, validateWith = PositiveInteger.class, description = "Greet many times", order = 4)
     private int repeat = 1;
 
     @Parameter(names = "--debug", description = "Debug mode", order = 5)
