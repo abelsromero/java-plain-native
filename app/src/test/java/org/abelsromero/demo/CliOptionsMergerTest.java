@@ -2,6 +2,7 @@ package org.abelsromero.demo;
 
 import org.abelsromero.demo.config.Configuration;
 import org.abelsromero.demo.config.LetterCase;
+import org.abelsromero.demo.test.ReflectionMock;
 import org.junit.jupiter.api.Test;
 
 import static org.abelsromero.demo.CliOptionsMerger.merge;

@@ -1,25 +1,34 @@
 package org.abelsromero.demo.config;
 
+import org.abelsromero.demo.test.FilesHandler;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.UUID;
 
+import static org.abelsromero.demo.config.ConfigurationInitializer.load;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ConfigurationInitializerTest {
 
     @TempDir
-    private Path tempDir;
+    private static Path tempDir;
+
+    private static FilesHandler filesHandler;
+
+    @BeforeAll
+    static void setup() {
+        filesHandler = new FilesHandler(tempDir);
+    }
 
     @Test
     void shouldReadEmptyConfiguration() throws IOException {
         final Path emptyFile = Files.createFile(tempDir.resolve("empty-config.yaml"));
 
-        Configuration init = ConfigurationInitializer.load(emptyFile.toAbsolutePath().toString());
+        Configuration init = load(emptyFile.toAbsolutePath().toString());
 
         assertThat(init)
                 .usingRecursiveComparison()
@@ -28,13 +37,13 @@ class ConfigurationInitializerTest {
 
     @Test
     void shouldReadFullConfiguration() throws IOException {
-        final Path configFile = createConfigFile(tempDir, """
+        final Path configFile = filesHandler.createFile("""
                 config:
                   letter-case: upper
                   repeat: 8
                 """);
 
-        Configuration config = ConfigurationInitializer.load(configFile.toAbsolutePath().toString());
+        Configuration config = load(configFile.toAbsolutePath().toString());
 
         assertThat(config)
                 .usingRecursiveComparison()
@@ -43,12 +52,12 @@ class ConfigurationInitializerTest {
 
     @Test
     void shouldReadUppercaseConfiguration() throws IOException {
-        final Path configFile = createConfigFile(tempDir, """
+        final Path configFile = filesHandler.createFile("""
                 config:
                   letter-case: upper
                 """);
 
-        Configuration config = ConfigurationInitializer.load(configFile.toAbsolutePath().toString());
+        Configuration config = load(configFile.toAbsolutePath().toString());
 
         assertThat(config)
                 .usingRecursiveComparison()
@@ -57,12 +66,12 @@ class ConfigurationInitializerTest {
 
     @Test
     void shouldReadLowercaseConfiguration() throws IOException {
-        final Path configFile = createConfigFile(tempDir, """
+        final Path configFile = filesHandler.createFile("""
                 config:
                   letter-case: lower
                 """);
 
-        Configuration config = ConfigurationInitializer.load(configFile.toAbsolutePath().toString());
+        Configuration config = load(configFile.toAbsolutePath().toString());
 
         assertThat(config)
                 .usingRecursiveComparison()
@@ -71,12 +80,12 @@ class ConfigurationInitializerTest {
 
     @Test
     void shouldReadNonecaseConfiguration() throws IOException {
-        final Path configFile = createConfigFile(tempDir, """
+        final Path configFile = filesHandler.createFile("""
                 config:
                   letter-case: none
                 """);
 
-        Configuration config = ConfigurationInitializer.load(configFile.toAbsolutePath().toString());
+        Configuration config = load(configFile.toAbsolutePath().toString());
 
         assertThat(config)
                 .usingRecursiveComparison()
@@ -85,12 +94,12 @@ class ConfigurationInitializerTest {
 
     @Test
     void shouldReadRepeatConfiguration() throws IOException {
-        final Path configFile = createConfigFile(tempDir, """
+        final Path configFile = filesHandler.createFile("""
                 config:
                   repeat: 42
                 """);
 
-        Configuration config = ConfigurationInitializer.load(configFile.toAbsolutePath().toString());
+        Configuration config = load(configFile.toAbsolutePath().toString());
 
         assertThat(config)
                 .usingRecursiveComparison()
@@ -102,11 +111,5 @@ class ConfigurationInitializerTest {
         config.setLetterCase(letterCase);
         config.setRepeat(repeat);
         return config;
-    }
-
-    private static Path createConfigFile(Path tempDir, String config) throws IOException {
-        final Path configFile = Files.createFile(tempDir.resolve(String.format("full-config-%s.yaml", UUID.randomUUID())));
-        Files.writeString(configFile, config);
-        return configFile;
     }
 }
