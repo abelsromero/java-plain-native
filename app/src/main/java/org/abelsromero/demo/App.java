@@ -7,7 +7,8 @@ import com.beust.jcommander.JCommander;
 import com.beust.jcommander.UnixStyleUsageFormatter;
 import org.abelsromero.demo.config.Configuration;
 import org.abelsromero.demo.config.ConfigurationInitializer;
-import org.abelsromero.demo.config.LetterCase;
+
+import static org.abelsromero.demo.CliOptionsMerger.merge;
 
 
 public class App {
@@ -31,8 +32,6 @@ public class App {
         }
     }
 
-    // TODO merge options correctly
-    // TODO test merging
     private static Configuration readConfiguration(CliOptions options) {
         var configuration = merge(Configuration.defaultConfiguration(), options);
 
@@ -41,21 +40,8 @@ public class App {
 
             // TODO fail if lower and upper are set at the same time
             return configuration.merge(candidate);
-        } else {
-            return configuration;
         }
-    }
 
-    private static Configuration merge(Configuration configuration, CliOptions options) {
-        if (options.isUppercase()) {
-            configuration.setLetterCase(LetterCase.UPPER);
-        }
-        if (options.isLowercase()) {
-            configuration.setLetterCase(LetterCase.LOWER);
-        }
-        if (options.getRepeat() > 0) {
-            configuration.setRepeat(options.getRepeat());
-        }
         return configuration;
     }
 

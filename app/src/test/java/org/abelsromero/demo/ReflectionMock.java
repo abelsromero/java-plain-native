@@ -12,7 +12,7 @@ class ReflectionMock<T> {
         this.clazz = (Class<T>) instance.getClass();
     }
 
-    static <T> ReflectionMock<T> mock(Object clazz) {
+    static <T> ReflectionMock<T> mock(T clazz) {
         return new ReflectionMock<>(clazz);
     }
 

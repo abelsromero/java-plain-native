@@ -29,7 +29,6 @@ final class CliOptions {
     @Parameter(names = {"-h", "--help"}, help = true, description = "Show this message", order = 6)
     private boolean help = false;
 
-    // TODO Integrate correctly
     @Parameter(names = {"-c", "--config-file"}, hidden = true, description = "Configuration file path", order = 4)
     private String configFile;
 

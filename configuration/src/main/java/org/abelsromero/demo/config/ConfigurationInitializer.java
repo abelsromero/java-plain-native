@@ -7,7 +7,6 @@ import java.io.FileReader;
 import java.util.Map;
 
 // TODO non-zero positive validation for repeat
-// TODO consolidate case options in an enum
 public class ConfigurationInitializer {
 
     private ConfigurationInitializer() {
