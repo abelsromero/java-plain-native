@@ -1,3 +1,3 @@
 config:
-  uppercase: true
+  letter-case: "upper"
   repeat: 1
