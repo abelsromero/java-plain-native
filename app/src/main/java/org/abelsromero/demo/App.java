@@ -7,6 +7,7 @@ import com.beust.jcommander.JCommander;
 import com.beust.jcommander.UnixStyleUsageFormatter;
 import org.abelsromero.demo.config.Configuration;
 import org.abelsromero.demo.config.ConfigurationInitializer;
+import org.abelsromero.demo.config.ConfigurationValidator;
 
 import static org.abelsromero.demo.CliOptionsMerger.merge;
 
@@ -23,8 +24,6 @@ public class App {
             jc.usage();
         } else {
             final Configuration config = readConfiguration(options);
-            if (config.isDebug())
-                System.out.println(config);
 
             System.out.println(new Greeter(options.getName(), config).getMessage());
             if (config.isDebug() && !options.getParameters().isEmpty())
@@ -37,8 +36,12 @@ public class App {
 
         if (!isEmpty(options.getConfigFile())) {
             var candidate = ConfigurationInitializer.load(options.getConfigFile());
+            if (options.isDebug())
+                System.out.println(candidate);
 
-            // TODO fail if lower and upper are set at the same time
+            new ConfigurationValidator()
+                    .validate(candidate);
+
             return configuration.merge(candidate);
         }
 

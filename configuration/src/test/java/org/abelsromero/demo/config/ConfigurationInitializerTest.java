@@ -6,6 +6,7 @@ import org.junit.jupiter.api.io.TempDir;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -104,7 +105,7 @@ class ConfigurationInitializerTest {
     }
 
     private static Path createConfigFile(Path tempDir, String config) throws IOException {
-        final Path configFile = Files.createFile(tempDir.resolve("full-config.yaml"));
+        final Path configFile = Files.createFile(tempDir.resolve(String.format("full-config-%s.yaml", UUID.randomUUID())));
         Files.writeString(configFile, config);
         return configFile;
     }
