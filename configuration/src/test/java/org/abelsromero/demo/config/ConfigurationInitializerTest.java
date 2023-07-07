@@ -18,7 +18,7 @@ class ConfigurationInitializerTest {
     void shouldReadEmptyConfiguration() throws IOException {
         final Path emptyFile = Files.createFile(tempDir.resolve("empty-config.yaml"));
 
-        Configuration init = ConfigurationInitializer.init(emptyFile.toAbsolutePath().toString());
+        Configuration init = ConfigurationInitializer.load(emptyFile.toAbsolutePath().toString());
 
         assertThat(init)
                 .usingRecursiveComparison()
@@ -33,7 +33,7 @@ class ConfigurationInitializerTest {
                   repeat: 8
                 """);
 
-        Configuration config = ConfigurationInitializer.init(configFile.toAbsolutePath().toString());
+        Configuration config = ConfigurationInitializer.load(configFile.toAbsolutePath().toString());
 
         assertThat(config)
                 .usingRecursiveComparison()
@@ -47,7 +47,7 @@ class ConfigurationInitializerTest {
                   letter-case: upper
                 """);
 
-        Configuration config = ConfigurationInitializer.init(configFile.toAbsolutePath().toString());
+        Configuration config = ConfigurationInitializer.load(configFile.toAbsolutePath().toString());
 
         assertThat(config)
                 .usingRecursiveComparison()
@@ -61,7 +61,7 @@ class ConfigurationInitializerTest {
                   letter-case: lower
                 """);
 
-        Configuration config = ConfigurationInitializer.init(configFile.toAbsolutePath().toString());
+        Configuration config = ConfigurationInitializer.load(configFile.toAbsolutePath().toString());
 
         assertThat(config)
                 .usingRecursiveComparison()
@@ -75,7 +75,7 @@ class ConfigurationInitializerTest {
                   letter-case: none
                 """);
 
-        Configuration config = ConfigurationInitializer.init(configFile.toAbsolutePath().toString());
+        Configuration config = ConfigurationInitializer.load(configFile.toAbsolutePath().toString());
 
         assertThat(config)
                 .usingRecursiveComparison()
@@ -89,7 +89,7 @@ class ConfigurationInitializerTest {
                   repeat: 42
                 """);
 
-        Configuration config = ConfigurationInitializer.init(configFile.toAbsolutePath().toString());
+        Configuration config = ConfigurationInitializer.load(configFile.toAbsolutePath().toString());
 
         assertThat(config)
                 .usingRecursiveComparison()

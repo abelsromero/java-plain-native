@@ -81,7 +81,7 @@ class CliOptionsParserTest {
         new CliOptionsParser()
                 .parse(options, minimalArgs(option, "my-settings.yaml"));
 
-        assertThat(options.getConfig()).isEqualTo("my-settings.yaml");
+        assertThat(options.getConfigFile()).isEqualTo("my-settings.yaml");
     }
 
     private String[] minimalArgs(String... values) {

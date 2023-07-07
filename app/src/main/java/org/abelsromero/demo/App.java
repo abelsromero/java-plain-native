@@ -21,13 +21,12 @@ public class App {
             jc.setUsageFormatter(new UnixStyleUsageFormatter(jc));
             jc.usage();
         } else {
-            System.out.println("----");
             final Configuration config = readConfiguration(options);
-            System.out.println(config);
+            if (config.isDebug())
+                System.out.println(config);
 
-            // TODO pass Configuration instead of options
-            System.out.println(new Greeter(options).getMessage());
-            if (options.isDebug() && !options.getParameters().isEmpty())
+            System.out.println(new Greeter(options.getName(), config).getMessage());
+            if (config.isDebug() && !options.getParameters().isEmpty())
                 System.out.println("Ignored parameters: " + options.getParameters());
         }
     }
@@ -37,8 +36,9 @@ public class App {
     private static Configuration readConfiguration(CliOptions options) {
         var configuration = merge(Configuration.defaultConfiguration(), options);
 
-        if (!isEmpty(options.getConfig())) {
-            var candidate = ConfigurationInitializer.init(options.getConfig());
+        if (!isEmpty(options.getConfigFile())) {
+            var candidate = ConfigurationInitializer.load(options.getConfigFile());
+
             // TODO fail if lower and upper are set at the same time
             return configuration.merge(candidate);
         } else {

@@ -10,7 +10,7 @@ class ConfigurationTest {
     void shouldReturnDefaultConfiguration() {
         final Configuration configuration = Configuration.defaultConfiguration();
 
-        assertConfiguration(configuration, LetterCase.NONE, 1);
+        assertConfiguration(configuration, LetterCase.NONE, 1, false);
     }
 
     @Test
@@ -20,7 +20,7 @@ class ConfigurationTest {
 
         configuration.merge(toMerge);
 
-        assertConfiguration(configuration, LetterCase.NONE, 1);
+        assertConfiguration(configuration, LetterCase.NONE, 1, false);
     }
 
     @Test
@@ -31,7 +31,7 @@ class ConfigurationTest {
 
         configuration.merge(toMerge);
 
-        assertConfiguration(configuration, LetterCase.UPPER, 1);
+        assertConfiguration(configuration, LetterCase.UPPER, 1, false);
     }
 
     @Test
@@ -42,11 +42,23 @@ class ConfigurationTest {
 
         configuration.merge(toMerge);
 
-        assertConfiguration(configuration, LetterCase.NONE, 42);
+        assertConfiguration(configuration, LetterCase.NONE, 42, false);
     }
 
-    private static void assertConfiguration(Configuration configuration, LetterCase letterCase, int repeat) {
+    @Test
+    void shouldMergeDebug() {
+        final Configuration configuration = Configuration.defaultConfiguration();
+        final Configuration toMerge = Configuration.defaultConfiguration();
+        toMerge.setDebug(true);
+
+        configuration.merge(toMerge);
+
+        assertConfiguration(configuration, LetterCase.NONE, 1, true);
+    }
+
+    private static void assertConfiguration(Configuration configuration, LetterCase letterCase, int repeat, boolean debug) {
         assertThat(configuration.getLetterCase()).isEqualTo(letterCase);
         assertThat(configuration.getRepeat()).isEqualTo(repeat);
+        assertThat(configuration.isDebug()).isEqualTo(debug);
     }
 }

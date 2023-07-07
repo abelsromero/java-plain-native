@@ -14,7 +14,7 @@ public class ConfigurationInitializer {
 
     }
 
-    public static Configuration init(String filePath) {
+    public static Configuration load(String filePath) {
 
         final Yaml yaml = new Yaml();
         final FileReader fileReader;

@@ -31,7 +31,7 @@ final class CliOptions {
 
     // TODO Integrate correctly
     @Parameter(names = {"-c", "--config-file"}, hidden = true, description = "Configuration file path", order = 4)
-    private String config;
+    private String configFile;
 
     public List<String> getParameters() {
         return parameters;
@@ -61,7 +61,7 @@ final class CliOptions {
         return help;
     }
 
-    public String getConfig() {
-        return config;
+    public String getConfigFile() {
+        return configFile;
     }
 }
