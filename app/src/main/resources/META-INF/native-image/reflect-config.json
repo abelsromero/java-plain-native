@@ -9,7 +9,7 @@
     ]
   },
   {
-    "name": "org.abelsromero.demo.Options",
+    "name": "org.abelsromero.demo.CliOptions",
     "allDeclaredFields": true,
     "queryAllDeclaredMethods": true
   },

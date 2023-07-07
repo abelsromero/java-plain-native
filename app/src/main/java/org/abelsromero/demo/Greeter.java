@@ -8,7 +8,7 @@ public class Greeter {
 
     private final String message;
 
-    Greeter(Options options) {
+    Greeter(CliOptions options) {
         String message = TEMPLATE.formatted(options.getName());
         if (options.isUppercase()) {
             message = message.toUpperCase();

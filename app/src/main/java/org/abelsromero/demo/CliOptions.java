@@ -6,7 +6,7 @@ import com.beust.jcommander.validators.PositiveInteger;
 import java.util.ArrayList;
 import java.util.List;
 
-final class Options {
+final class CliOptions {
 
     @Parameter
     private List<String> parameters = new ArrayList<>();
@@ -30,7 +30,7 @@ final class Options {
     private boolean help = false;
 
     // TODO Integrate correctly
-    @Parameter(names = {"-c"}, hidden = true, description = "Configuration file path", order = 4)
+    @Parameter(names = {"-c", "--config-file"}, hidden = true, description = "Configuration file path", order = 4)
     private String config;
 
     public List<String> getParameters() {

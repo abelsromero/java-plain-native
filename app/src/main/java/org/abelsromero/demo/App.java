@@ -7,12 +7,14 @@ import com.beust.jcommander.JCommander;
 import com.beust.jcommander.UnixStyleUsageFormatter;
 import org.abelsromero.demo.config.Configuration;
 import org.abelsromero.demo.config.ConfigurationInitializer;
+import org.abelsromero.demo.config.LetterCase;
+
 
 public class App {
 
     public static void main(String[] args) {
-        final Options options = new Options();
-        final JCommander jc = new OptionsParser()
+        final CliOptions options = new CliOptions();
+        final JCommander jc = new CliOptionsParser()
                 .parse(options, args);
 
         if (options.isHelp()) {
@@ -31,28 +33,31 @@ public class App {
     }
 
     // TODO merge options correctly
-    private static Configuration readConfiguration(Options options) {
-        boolean uppercase = false;
-        boolean lowercase = false;
-        int repeat = 1;
+    // TODO test merging
+    private static Configuration readConfiguration(CliOptions options) {
+        var configuration = merge(Configuration.defaultConfiguration(), options);
+
         if (!isEmpty(options.getConfig())) {
-            Configuration candidate = ConfigurationInitializer.init(options.getConfig());
-            // no need else, already false by default
-            if (candidate.uppercase()) {
-                uppercase = true;
-            }
-            if (candidate.lowercase()) {
-                lowercase = true;
-            }
-            if (candidate.repeat() > 0) {
-                repeat = candidate.repeat();
-            } else {
-                repeat = options.getRepeat();
-            }
+            var candidate = ConfigurationInitializer.init(options.getConfig());
+            // TODO fail if lower and upper are set at the same time
+            return configuration.merge(candidate);
+        } else {
+            return configuration;
         }
-        return new Configuration(uppercase, lowercase, repeat);
     }
 
+    private static Configuration merge(Configuration configuration, CliOptions options) {
+        if (options.isUppercase()) {
+            configuration.setLetterCase(LetterCase.UPPER);
+        }
+        if (options.isLowercase()) {
+            configuration.setLetterCase(LetterCase.LOWER);
+        }
+        if (options.getRepeat() > 0) {
+            configuration.setRepeat(options.getRepeat());
+        }
+        return configuration;
+    }
 
     private static boolean isEmpty(String value) {
         return value == null || value.length() == 0;

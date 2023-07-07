@@ -45,9 +45,9 @@ class GreeterTest {
         assertThat(message).isEqualTo("Hello Arthur!!\n" + "Hello Arthur!!\n" + "Hello Arthur!!\n" + "Hello Arthur!!");
     }
 
-    public static ReflectionMock<Options> options() {
-        final Options options = new Options();
-        final ReflectionMock<Options> mock = ReflectionMock.mock(options);
+    public static ReflectionMock<CliOptions> options() {
+        final CliOptions options = new CliOptions();
+        final ReflectionMock<CliOptions> mock = ReflectionMock.mock(options);
         mock.mockString("name", "Arthur");
         return mock;
     }

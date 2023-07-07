@@ -26,13 +26,21 @@ public class ConfigurationInitializer {
 
         final Map<String, Object> data = yaml.load(fileReader);
         if (data == null)
-            return new Configuration(Boolean.FALSE, Boolean.FALSE, 1);
+            return Configuration.defaultConfiguration();
 
-        Map<String, Object> configNode = (Map<String, Object>) data.getOrDefault("config", Map.of());
-        return new Configuration(
-                (Boolean) configNode.getOrDefault("uppercase", Boolean.FALSE),
-                (Boolean) configNode.getOrDefault("lowercase", Boolean.FALSE),
-                (Integer) configNode.getOrDefault("repeat", 1)
-        );
+        final var configNode = (Map<String, Object>) data.getOrDefault("config", Map.of());
+
+        final var configuration = new Configuration();
+        configuration.setLetterCase(letterCase((String) configNode.get("letter-case")));
+        configuration.setRepeat((Integer) configNode.getOrDefault("repeat", 1));
+
+        return configuration;
+    }
+
+    private static LetterCase letterCase(String value) {
+        if (value == null || value.length() == 0)
+            return LetterCase.NONE;
+        else
+            return LetterCase.valueOf(value.toUpperCase());
     }
 }
