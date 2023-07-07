@@ -1,14 +1,32 @@
 package org.abelsromero.demo;
 
+import com.beust.jcommander.ParameterException;
+import org.abelsromero.demo.test.FilesHandler;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
+import java.nio.file.Path;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class AppTest {
+
+    @TempDir
+    private static Path tempDir;
+
+    private static FilesHandler filesHandler;
+
+    @BeforeAll
+    static void setup() {
+        filesHandler = new FilesHandler(tempDir);
+    }
 
     @ParameterizedTest
     @ValueSource(strings = {"-h", "--help"})
@@ -35,5 +53,22 @@ public class AppTest {
         assertThat(outputLines[5]).contains("-r, --repeat");
         assertThat(outputLines[6]).contains("--debug");
         assertThat(outputLines[7]).contains("-h, --help");
+    }
+
+    @Test
+    void shouldFailWhenAParameterIsInvalid() {
+        assertThatThrownBy(() -> App.main(new String[]{"-r", "-1"}))
+                .isInstanceOf(ParameterException.class);
+    }
+
+    @Test
+    void shouldFailWhenRepeatIsOverriddenFromConfigWithAnInvalidValue() throws IOException {
+        final Path configFile = filesHandler.createFile("""
+                config:
+                  repeat: -2
+                """);
+
+        assertThatThrownBy(() -> App.main(new String[]{"-n", "test", "-r", "2", "-c", configFile.toAbsolutePath().toString()}))
+                .isInstanceOf(IllegalArgumentException.class);
     }
 }

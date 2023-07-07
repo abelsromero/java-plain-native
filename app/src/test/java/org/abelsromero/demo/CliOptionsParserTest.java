@@ -12,21 +12,21 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
 
-class OptionsParserTest {
+class CliOptionsParserTest {
 
     @Test
     void shouldFailWhenNoArgsArePassed() {
-        final Options options = new Options();
+        final CliOptions options = new CliOptions();
 
-        Throwable throwable = catchThrowable(() -> new OptionsParser().parse(options, new String[]{}));
+        Throwable throwable = catchThrowable(() -> new CliOptionsParser().parse(options, new String[]{}));
 
         assertThat(throwable).isInstanceOf(ParameterException.class);
     }
 
     @Test
     void shouldParseName() {
-        final Options options = new Options();
-        new OptionsParser()
+        final CliOptions options = new CliOptions();
+        new CliOptionsParser()
                 .parse(options, new String[]{"-n", "Arthur"});
 
         assertThat(options.getName()).isEqualTo("Arthur");
@@ -37,8 +37,8 @@ class OptionsParserTest {
 
         @Test
         void shouldParseShortOption() {
-            final Options options = new Options();
-            new OptionsParser()
+            final CliOptions options = new CliOptions();
+            new CliOptionsParser()
                     .parse(options, minimalArgs("-u"));
 
             assertThat(options.isUppercase()).isTrue();
@@ -46,8 +46,8 @@ class OptionsParserTest {
 
         @Test
         void shouldParseLongOption() {
-            final Options options = new Options();
-            new OptionsParser()
+            final CliOptions options = new CliOptions();
+            new CliOptionsParser()
                     .parse(options, minimalArgs("--uppercase"));
 
             assertThat(options.isUppercase()).isTrue();
@@ -57,8 +57,8 @@ class OptionsParserTest {
     @ParameterizedTest
     @ValueSource(strings = {"-l", "--lowercase"})
     void shouldParseLowercaseOption(String option) {
-        final Options options = new Options();
-        new OptionsParser()
+        final CliOptions options = new CliOptions();
+        new CliOptionsParser()
                 .parse(options, minimalArgs(option));
 
         assertThat(options.isLowercase()).isTrue();
@@ -67,11 +67,21 @@ class OptionsParserTest {
     @ParameterizedTest
     @ValueSource(strings = {"-r", "--repeat"})
     void shouldParseRepeatOption(String option) {
-        final Options options = new Options();
-        new OptionsParser()
+        final CliOptions options = new CliOptions();
+        new CliOptionsParser()
                 .parse(options, minimalArgs(option, "4"));
 
         assertThat(options.getRepeat()).isEqualTo(4);
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"-c", "--config-file"})
+    void shouldParseConfigFileOption(String option) {
+        final CliOptions options = new CliOptions();
+        new CliOptionsParser()
+                .parse(options, minimalArgs(option, "my-settings.yaml"));
+
+        assertThat(options.getConfigFile()).isEqualTo("my-settings.yaml");
     }
 
     private String[] minimalArgs(String... values) {

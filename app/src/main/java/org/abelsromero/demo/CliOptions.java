@@ -6,7 +6,7 @@ import com.beust.jcommander.validators.PositiveInteger;
 import java.util.ArrayList;
 import java.util.List;
 
-final class Options {
+final class CliOptions {
 
     @Parameter
     private List<String> parameters = new ArrayList<>();
@@ -28,6 +28,9 @@ final class Options {
 
     @Parameter(names = {"-h", "--help"}, help = true, description = "Show this message", order = 6)
     private boolean help = false;
+
+    @Parameter(names = {"-c", "--config-file"}, hidden = true, description = "Configuration file path", order = 4)
+    private String configFile;
 
     public List<String> getParameters() {
         return parameters;
@@ -55,5 +58,9 @@ final class Options {
 
     public boolean isHelp() {
         return help;
+    }
+
+    public String getConfigFile() {
+        return configFile;
     }
 }

@@ -1,8 +1,8 @@
-package org.abelsromero.demo;
+package org.abelsromero.demo.test;
 
 import java.lang.reflect.Field;
 
-class ReflectionMock<T> {
+public class ReflectionMock<T> {
 
     private final Object instance;
     private final Class<T> clazz;
@@ -12,11 +12,11 @@ class ReflectionMock<T> {
         this.clazz = (Class<T>) instance.getClass();
     }
 
-    static <T> ReflectionMock<T> mock(Object clazz) {
+    public static <T> ReflectionMock<T> mock(T clazz) {
         return new ReflectionMock<>(clazz);
     }
 
-    void mockBoolean(String field, Boolean value) {
+    public void mockBoolean(String field, Boolean value) {
         setValue(field, value);
     }
 
@@ -38,7 +38,7 @@ class ReflectionMock<T> {
         }
     }
 
-    T getInstance() {
+    public T getInstance() {
         return (T) instance;
     }
 }
