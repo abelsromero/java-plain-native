@@ -1,39 +1,39 @@
 plugins {
-    id 'application'
-    id 'org.graalvm.buildtools.native' version '0.9.23'
+  id 'application'
+  id 'org.graalvm.buildtools.native' version '0.9.23'
 }
 
 dependencies {
-    implementation project(':configuration')
-    implementation 'com.beust:jcommander:1.82'
+  implementation project(':configuration')
+  implementation 'com.beust:jcommander:1.82'
 }
 
 java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
-    }
+  toolchain {
+    languageVersion = JavaLanguageVersion.of(17)
+  }
 }
 
 application {
-    mainClass = 'org.abelsromero.demo.App'
+  mainClass = 'org.abelsromero.demo.App'
 }
 
 tasks.named('test') {
-    useJUnitPlatform()
+  useJUnitPlatform()
 }
 
 graalvmNative {
-    binaries {
-        main {
-            imageName = 'my-app'
-            mainClass = application.mainClass
-        }
+  binaries {
+    main {
+      imageName = 'my-app'
+      mainClass = application.mainClass
     }
+  }
 }
 
 jar {
-    manifest {
-        attributes 'Main-Class': application.mainClass
-    }
+  manifest {
+    attributes 'Main-Class': application.mainClass
+  }
 }
 
