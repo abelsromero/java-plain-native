@@ -1,24 +1,37 @@
-subprojects {
-    apply plugin: 'java'
-
-    repositories {
-        mavenCentral()
-    }
-
-    dependencies {
-        testImplementation project(':test-tools')
-        testImplementation platform("org.junit:junit-bom:5.9.3")
-        testImplementation "org.junit.jupiter:junit-jupiter"
-        testImplementation 'org.assertj:assertj-core:3.24.2'
-    }
-
-    java {
-        toolchain {
-            languageVersion = JavaLanguageVersion.of(17)
-        }
-    }
-
-    tasks.named('test') {
-        useJUnitPlatform()
-    }
+plugins {
+  // Add clean for root 'build'
+  id 'base'
 }
+
+subprojects {
+  apply plugin: 'java'
+
+  repositories {
+    mavenCentral()
+  }
+
+  dependencies {
+    testImplementation project(':test-tools')
+    testImplementation platform("org.junit:junit-bom:5.9.3")
+    testImplementation "org.junit.jupiter:junit-jupiter"
+    testImplementation 'org.assertj:assertj-core:3.24.2'
+  }
+
+  java {
+    toolchain {
+      languageVersion = JavaLanguageVersion.of(17)
+    }
+  }
+
+  tasks.named('test') {
+    useJUnitPlatform()
+  }
+
+  tasks.register("copyReportsToParent", Copy) {
+    group 'Reporting'
+    dependsOn tasks.named('test')
+    from "${buildDir}/reports"
+    into "${parent.buildDir}/reports/${project.name}"
+  }
+}
+
