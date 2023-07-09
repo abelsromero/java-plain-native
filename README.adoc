@@ -2,6 +2,8 @@
 
 Experimental repo to assess complexity of building a native image only using 'org.graalvm.buildtools.native'.
 
+// diary https://twitter.com/abelsromero/status/1675556510976335872
+
 == Setup
 
 . Install Graal (using Liberica NIK to simplify steps)
