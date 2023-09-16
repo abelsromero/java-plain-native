@@ -2,9 +2,10 @@
 
 set -euo pipefail
 
-list_paths() {
-  ls -lah base/build/native/nativeCompile/
-  ls -lah app/build/native/nativeCompile/
+
+list_module_stats() {
+  echo "Stats: $1"
+  ls -lahp "$1/build/native/nativeCompile/" | grep -v /$
 }
 
 compare_binaries() {
@@ -16,7 +17,8 @@ compare_binaries() {
 }
 
 main() {
-  list_paths
+  list_module_stats "base"
+  list_module_stats "app"
   compare_binaries
 }
 
