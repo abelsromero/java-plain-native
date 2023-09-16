@@ -1,6 +1,7 @@
 = Plain Java native
 
 Experimental repo to assess complexity of building a native image only using 'org.graalvm.buildtools.native'.
+'base' module is a simple "HelloWorld" project for comparison (see `ci/stats.sh`).
 
 // diary https://twitter.com/abelsromero/status/1675556510976335872
 

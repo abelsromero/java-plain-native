@@ -75,6 +75,8 @@ jobs:
         run: ./gradlew nativeTest
       - name: Build binary
         run: ./gradlew nativeCompile
+      - name: Statistics
+        run: ./ci/stats.sh
       - name: Collect reports
         run: ./gradlew copyReportsToParent
         if: always()
