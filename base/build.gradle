@@ -1,0 +1,16 @@
+plugins {
+  id 'org.graalvm.buildtools.native'
+}
+
+tasks.named('test') {
+  useJUnitPlatform()
+}
+
+graalvmNative {
+  binaries {
+    main {
+      imageName = 'hello'
+      mainClass = 'org.abelsromero.demo.HelloWorld'
+    }
+  }
+}

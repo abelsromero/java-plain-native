@@ -1,17 +1,11 @@
 plugins {
   id 'application'
-  id 'org.graalvm.buildtools.native' version '0.9.27'
+  id 'org.graalvm.buildtools.native'
 }
 
 dependencies {
   implementation project(':configuration')
   implementation 'com.beust:jcommander:1.82'
-}
-
-java {
-  toolchain {
-    languageVersion = JavaLanguageVersion.of(17)
-  }
 }
 
 application {
