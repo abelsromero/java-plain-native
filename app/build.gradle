@@ -19,8 +19,12 @@ tasks.named('test') {
 graalvmNative {
   binaries {
     main {
-      imageName = 'my-app'
       mainClass = application.mainClass
+    }
+  }
+  if (project.properties.get('gc')) {
+    binaries.all {
+      buildArgs.addAll("--gc=${project.properties.get('gc')}")
     }
   }
 }
