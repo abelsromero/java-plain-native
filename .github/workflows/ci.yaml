@@ -67,7 +67,7 @@ jobs:
           fetch-depth: 1
       - uses: graalvm/setup-graalvm@v1
         with:
-          java-version: '20.0.2'
+          java-version: '21.0.0'
           distribution: 'graalvm-community'
       - name: Gradle env
         run: ./gradlew -version
