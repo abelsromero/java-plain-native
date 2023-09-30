@@ -9,7 +9,7 @@ on:
 
 jobs:
   build-jvm:
-    name: Build
+    name: Build JVM
     strategy:
       fail-fast: false
       max-parallel: 4
@@ -88,7 +88,7 @@ jobs:
           name: reports-${{ env.os_name }}-${{ env.java_version }}
           path: build/reports/*
   compare-binaries:
-    name: Build Native
+    name: Compare Non-Java binaries
     strategy:
       fail-fast: false
       max-parallel: 4
