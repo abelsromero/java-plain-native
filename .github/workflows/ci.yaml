@@ -75,6 +75,9 @@ jobs:
         run: ./gradlew nativeTest
       - name: Build binary
         run: ./gradlew nativeCompile
+      - uses: actions/setup-go@v4
+        with:
+          go-version: '>=1.21.1'
       - name: Statistics
         run: ./ci/stats.sh
       - name: Collect reports
