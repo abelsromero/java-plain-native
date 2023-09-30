@@ -27,7 +27,7 @@ run_gradle() {
 
 print_stats() {
   echo "== STATS"
-  echo -e "module\tsize(Mb) size(no gc)\tdif(Kb)"
+  echo -e "module\tsize(Mb) size(no gc)\tdif(Mb)"
   for value in "${STATS[@]}"; do
     read -r -a arr <<< "$value"
     size_mb=$(echo "scale=2; ${arr[1]}/1048576" | bc)
