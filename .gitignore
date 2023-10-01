@@ -1,5 +1,4 @@
 .idea
 .gradle
 build
-# examples
-hello
+target
