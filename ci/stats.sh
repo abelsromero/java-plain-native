@@ -46,7 +46,6 @@ add_stats() {
   local -r index=$((PROJECTS_COUNT+1))
   STATS[$index]="$1 $(stat --printf="%s" "$2")"
   PROJECTS_COUNT=$index
-  echo "COUNT (after): $PROJECTS_COUNT"
 }
 
 collect_stats() {
@@ -58,20 +57,17 @@ collect_stats() {
   STATS[0]="${STATS[0]} $(stat --printf="%s" "base/build/native/nativeCompile/base")"
   STATS[1]="${STATS[1]} $(stat --printf="%s" "app/build/native/nativeCompile/app")"
 
-  local -r base_path="non-java-examples"
-  make -C non-java-examples/c
+  local -r base_path="examples"
+  make -C "$base_path/c"
   add_stats "c" "${base_path}/c/hello"
-#  STATS[2]="c $(stat --printf="%s" "non-java-examples/c/hello")"
 
-  make -C non-java-examples/cpp
+  make -C "$base_path/cpp"
   add_stats "cpp" "${base_path}/c/hello"
-#  STATS[3]="cpp $(stat --printf="%s" "non-java-examples/cpp/hello")"
 
-  (cd non-java-examples/go/hello && go build)
+  (cd "$base_path/go/hello" && go build)
   add_stats "go" "${base_path}/go/hello/hello"
-#  STATS[4]="Go $(stat --printf="%s" "non-java-examples/go/hello/hello")"
 
-  (cd non-java-examples/rust/hello && cargo build --release)
+  (cd "$base_path/rust/hello" && cargo build --release)
   add_stats "rust" "${base_path}/rust/hello/target/release/hello"
 }
 

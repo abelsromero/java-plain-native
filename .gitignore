@@ -1,5 +1,4 @@
 .idea
 .gradle
 build
-# non-java binaries
-hello
+target
