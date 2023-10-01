@@ -27,7 +27,7 @@ run_gradle() {
 
 print_stats() {
   echo "== STATS"
-  echo -e "module\tsize(Mb) size(no gc)\tdif(Mb)"
+  echo -e "module\t\tsize(Mb) size(no gc)\tdif(Mb)"
   for value in "${STATS[@]}"; do
     read -r -a arr <<< "$value"
     size_mb=$(echo "scale=2; ${arr[1]}/1048576" | bc)
@@ -38,7 +38,9 @@ print_stats() {
       size_nogc_mb="n/a"
       diff="n/a"
     fi
-    echo -e "${arr[0]}\t${size_mb}\t ${size_nogc_mb}\t\t${diff}"
+    local column_separator="\t\t"
+    [ ${#arr[0]} -gt 8 ] && column_separator="\t"
+    echo -e "${arr[0]}${column_separator}${size_mb}\t ${size_nogc_mb}\t\t${diff}"
   done
 }
 
@@ -69,6 +71,10 @@ collect_stats() {
 
   (cd "$base_path/rust/hello" && cargo build --release)
   add_stats "rust" "${base_path}/rust/hello/target/release/hello"
+
+  # Handled as independent project for https://github.com/graalvm/native-build-tools/issues/70
+  (cd "$base_path/spring-boot-cli" && ./gradlew nativeCompile)
+  add_stats "spring-boot" "${base_path}/spring-boot-cli/build/native/nativeCompile/spring-boot-cli"
 }
 
 main() {
