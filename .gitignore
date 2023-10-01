@@ -1,5 +1,5 @@
 .idea
 .gradle
 build
-# non-java binaries
+# examples
 hello

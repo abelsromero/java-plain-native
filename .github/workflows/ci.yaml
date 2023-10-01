@@ -88,7 +88,7 @@ jobs:
           name: reports-${{ env.os_name }}-${{ env.java_version }}
           path: build/reports/*
   compare-binaries:
-    name: Compare Non-Java binaries
+    name: Compare examples binaries
     strategy:
       fail-fast: false
       max-parallel: 4
