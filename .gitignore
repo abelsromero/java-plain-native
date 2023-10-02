@@ -2,3 +2,7 @@
 .gradle
 build
 target
+#examples binaries
+examples/c/hello
+examples/cpp/hello
+examples/go/hello/hello
