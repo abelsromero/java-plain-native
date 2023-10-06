@@ -14,4 +14,6 @@ include \
   'app',
   'base',
   'configuration',
+  'logging-api',
+  'logging-slf4j',
   'test-tools'

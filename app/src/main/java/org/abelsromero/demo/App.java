@@ -5,6 +5,8 @@ import com.beust.jcommander.UnixStyleUsageFormatter;
 import org.abelsromero.demo.config.Configuration;
 import org.abelsromero.demo.config.ConfigurationInitializer;
 import org.abelsromero.demo.config.ConfigurationValidator;
+import org.abelsromero.demo.logging.LoggingService;
+import org.abelsromero.demo.logging.LoggingServiceLocator;
 
 import static org.abelsromero.demo.CliOptionsMerger.merge;
 
@@ -12,9 +14,11 @@ import static org.abelsromero.demo.CliOptionsMerger.merge;
 public class App {
 
     public static void main(String[] args) {
+        final LoggingService innerLogger = new LoggingServiceLocator().locate(App.class);
+
         final CliOptions options = new CliOptions();
         final JCommander jc = new CliOptionsParser()
-                .parse(options, args);
+            .parse(options, args);
 
         if (options.isHelp()) {
             jc.setUsageFormatter(new UnixStyleUsageFormatter(jc));
@@ -22,9 +26,9 @@ public class App {
         } else {
             final Configuration config = readConfiguration(options);
 
-            System.out.println(new Greeter(options.getName(), config).getMessage());
+            innerLogger.info(new Greeter(options.getName(), config).getMessage());
             if (config.isDebug() && !options.getParameters().isEmpty())
-                System.out.println("Ignored parameters: " + options.getParameters());
+                innerLogger.info("Ignored parameters: " + options.getParameters());
         }
     }
 
@@ -37,7 +41,7 @@ public class App {
                 System.out.println(candidate);
 
             new ConfigurationValidator()
-                    .validate(candidate);
+                .validate(candidate);
 
             return configuration.merge(candidate);
         }

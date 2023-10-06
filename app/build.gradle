@@ -5,7 +5,11 @@ plugins {
 
 dependencies {
   implementation project(':configuration')
+  implementation project(':logging-api')
   implementation 'com.beust:jcommander:1.82'
+  if (project.properties.getOrDefault('appLogger', 'stdout') == 'slf4j') {
+    implementation project(':logging-slf4j')
+  }
 }
 
 application {
