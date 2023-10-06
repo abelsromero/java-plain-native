@@ -59,25 +59,29 @@ collect_stats() {
   STATS[0]="${STATS[0]} $(stat --printf="%s" "base/build/native/nativeCompile/base")"
   STATS[1]="${STATS[1]} $(stat --printf="%s" "app/build/native/nativeCompile/app")"
 
+  local -r module="app"
+  ./gradlew -PappLogger=slf4j ":$module:nativeCompile"
+  add_stats "app(slf4j)" "$module/build/native/nativeCompile/app"
+
   local -r base_path="examples"
   make -C "$base_path/c"
-  add_stats "c" "${base_path}/c/hello"
+  add_stats "c" "$base_path/c/hello"
 
   make -C "$base_path/cpp"
-  add_stats "cpp" "${base_path}/c/hello"
+  add_stats "cpp" "$base_path/c/hello"
 
   (cd "$base_path/go/hello" && go build)
-  add_stats "go" "${base_path}/go/hello/hello"
+  add_stats "go" "$base_path/go/hello/hello"
 
   (cd "$base_path/rust/hello" && cargo build --release)
-  add_stats "rust" "${base_path}/rust/hello/target/release/hello"
+  add_stats "rust" "$base_path/rust/hello/target/release/hello"
 
   # Handled as independent project for https://github.com/graalvm/native-build-tools/issues/70
   (cd "$base_path/spring-boot-cli" && ./gradlew nativeCompile)
-  add_stats "spring-boot" "${base_path}/spring-boot-cli/build/native/nativeCompile/spring-boot-cli"
+  add_stats "spring-boot" "$base_path/spring-boot-cli/build/native/nativeCompile/spring-boot-cli"
 
   (cd "$base_path/quarkus-cli" && ./gradlew build -Dquarkus.package.type=native)
-  add_stats "quarkus" "${base_path}/quarkus-cli/build/quarkus-cli-1.0.0-SNAPSHOT-runner"
+  add_stats "quarkus" "$base_path/quarkus-cli/build/quarkus-cli-1.0.0-SNAPSHOT-runner"
 }
 
 main() {

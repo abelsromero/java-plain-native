@@ -1,0 +1,8 @@
+= logging-slf4j
+
+Slf4j implementation of demo logging-api.
+
+== Native requirements
+
+* `ch.qos.logback:logback-classic` v1.4.8 until superior versions https://github.com/oracle/graalvm-reachability-metadata/tree/master/metadata/ch.qos.logback/logback-classic[metadata] is added/fixed (v1.4.9 does not work).
+* `native-image/resource-config.json` to add SPI file.

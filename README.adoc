@@ -48,3 +48,6 @@ https://github.com/oracle/graalvm-reachability-metadata/pull/141
 
 * JCommander requires several classes to be added for reflection (`reflect-config.json`).
 Agent can be run with `./gradlew -Pagent app:nativeTest`.
+
+* As of date 5/10/23 logback-classic up v1.4.8 works.
+v1.4.9 has https://github.com/oracle/graalvm-reachability-metadata/blob/master/metadata/ch.qos.logback/logback-classic/1.4.9/[metadata] but it does not work (binary is small and logs don't show).

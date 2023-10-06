@@ -5,6 +5,8 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+// There's an alternative way with org.springframework.boot.CommandLineRunner,
+// but CommandLineRunner simply passes `String[]` instead of parsed arguments.
 @SpringBootApplication
 public class SpringBootCliApplication implements ApplicationRunner {
 
