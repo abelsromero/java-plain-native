@@ -1,0 +1,12 @@
+= Spring Boot example
+
+A simple CLI build with Spring Boot.
+
+== Tips
+
+If the app does not start, before using the agent, simply run the app in debug with
+
+.application.properties
+ logging.level.root=DEBUG
+
+This will show amongst other any resource (`FileNotFound`) or reflection access (`ClassNotFound`) that needs to be added as a https://docs.spring.io/spring-boot/docs/current/reference/html/native-image.html#native-image.advanced.custom-hints[Hint].
