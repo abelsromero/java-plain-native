@@ -3,9 +3,9 @@ plugins {
 }
 
 dependencies {
-  implementation project(':logging-api')
+  implementation project(':java-modules:logging-api')
   if (project.properties.getOrDefault('appLogger', 'stdout') == 'slf4j') {
-    implementation project(':logging-slf4j')
+    implementation project(':java-modules:logging-slf4j')
   }
 }
 

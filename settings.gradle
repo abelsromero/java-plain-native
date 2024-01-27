@@ -13,8 +13,8 @@ rootProject.name = 'java-plain-native'
 include \
   'app',
   'base',
-  'configuration',
-  'logging-api',
-  'logging-slf4j',
-  'test-tools',
+  'java-modules:configuration',
+  'java-modules:logging-api',
+  'java-modules:logging-slf4j',
+  ':java-modules:test-tools',
   'java-modules:process'
