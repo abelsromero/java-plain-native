@@ -3,7 +3,7 @@ package org.abelsromero.demo;
 import com.beust.jcommander.IParameterValidator;
 import com.beust.jcommander.ParameterException;
 
-class NoneZeroPositiveInteger implements IParameterValidator {
+class NoneZeroPositiveIntegerValidator implements IParameterValidator {
 
     public void validate(String name, String value)
             throws ParameterException {

@@ -67,14 +67,14 @@ jobs:
           fetch-depth: 1
       - uses: graalvm/setup-graalvm@v1
         with:
-          java-version: '21.0.0'
+          java-version: '21.0.2'
           distribution: 'graalvm-community'
       - name: Gradle env
         run: ./gradlew -version
-      - name: Build binary
-        run: ./gradlew nativeCompile
       - name: Test
         run: ./gradlew nativeTest
+      - name: Build binary
+        run: ./gradlew :app:nativeCompile
       - name: Collect reports
         run: ./gradlew copyReportsToParent
         if: always()
@@ -102,7 +102,7 @@ jobs:
           fetch-depth: 1
       - uses: graalvm/setup-graalvm@v1
         with:
-          java-version: '21.0.0'
+          java-version: '21.0.2'
           distribution: 'graalvm-community'
       - uses: actions/setup-go@v5
         with:
