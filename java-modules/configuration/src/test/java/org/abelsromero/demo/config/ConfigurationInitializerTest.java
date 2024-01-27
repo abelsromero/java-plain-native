@@ -31,79 +31,63 @@ class ConfigurationInitializerTest {
         Configuration init = load(emptyFile.toAbsolutePath().toString());
 
         assertThat(init)
-                .usingRecursiveComparison()
-                .isEqualTo(configuration(LetterCase.NONE, 1));
+            .usingRecursiveComparison()
+            .isEqualTo(configuration(LetterCase.NONE, 1));
     }
 
     @Test
     void shouldReadFullConfiguration() throws IOException {
-        final Path configFile = filesHandler.createFile("""
-                config:
-                  letter-case: upper
-                  repeat: 8
-                """);
+        final Path configFile = filesHandler.createFile(configFile("letter-case: upper", "repeat: 8"));
 
         Configuration config = load(configFile.toAbsolutePath().toString());
 
         assertThat(config)
-                .usingRecursiveComparison()
-                .isEqualTo(configuration(LetterCase.UPPER, 8));
+            .usingRecursiveComparison()
+            .isEqualTo(configuration(LetterCase.UPPER, 8));
     }
 
     @Test
     void shouldReadUppercaseConfiguration() throws IOException {
-        final Path configFile = filesHandler.createFile("""
-                config:
-                  letter-case: upper
-                """);
+        final Path configFile = filesHandler.createFile(configFile("letter-case: upper"));
 
         Configuration config = load(configFile.toAbsolutePath().toString());
 
         assertThat(config)
-                .usingRecursiveComparison()
-                .isEqualTo(configuration(LetterCase.UPPER, 1));
+            .usingRecursiveComparison()
+            .isEqualTo(configuration(LetterCase.UPPER, 1));
     }
 
     @Test
     void shouldReadLowercaseConfiguration() throws IOException {
-        final Path configFile = filesHandler.createFile("""
-                config:
-                  letter-case: lower
-                """);
+        final Path configFile = filesHandler.createFile(configFile("letter-case: lower"));
 
         Configuration config = load(configFile.toAbsolutePath().toString());
 
         assertThat(config)
-                .usingRecursiveComparison()
-                .isEqualTo(configuration(LetterCase.LOWER, 1));
+            .usingRecursiveComparison()
+            .isEqualTo(configuration(LetterCase.LOWER, 1));
     }
 
     @Test
     void shouldReadNonecaseConfiguration() throws IOException {
-        final Path configFile = filesHandler.createFile("""
-                config:
-                  letter-case: none
-                """);
+        final Path configFile = filesHandler.createFile(configFile("letter-case: none"));
 
         Configuration config = load(configFile.toAbsolutePath().toString());
 
         assertThat(config)
-                .usingRecursiveComparison()
-                .isEqualTo(configuration(LetterCase.NONE, 1));
+            .usingRecursiveComparison()
+            .isEqualTo(configuration(LetterCase.NONE, 1));
     }
 
     @Test
     void shouldReadRepeatConfiguration() throws IOException {
-        final Path configFile = filesHandler.createFile("""
-                config:
-                  repeat: 42
-                """);
+        final Path configFile = filesHandler.createFile(configFile("repeat: 42"));
 
         Configuration config = load(configFile.toAbsolutePath().toString());
 
         assertThat(config)
-                .usingRecursiveComparison()
-                .isEqualTo(configuration(LetterCase.NONE, 42));
+            .usingRecursiveComparison()
+            .isEqualTo(configuration(LetterCase.NONE, 42));
     }
 
     private Object configuration(LetterCase letterCase, int repeat) {
@@ -111,5 +95,14 @@ class ConfigurationInitializerTest {
         config.setLetterCase(letterCase);
         config.setRepeat(repeat);
         return config;
+    }
+
+    private String configFile(String... rows) {
+        final StringBuilder sb = new StringBuilder("config:\n");
+        for (String row : rows) {
+            sb.append("  " + row);
+            sb.append("\n");
+        }
+        return sb.toString();
     }
 }
