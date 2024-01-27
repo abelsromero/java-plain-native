@@ -71,10 +71,10 @@ jobs:
           distribution: 'graalvm-community'
       - name: Gradle env
         run: ./gradlew -version
-      - name: Build binary
-        run: ./gradlew nativeCompile
       - name: Test
         run: ./gradlew nativeTest
+      - name: Build binary
+        run: ./gradlew :app:nativeCompile
       - name: Collect reports
         run: ./gradlew copyReportsToParent
         if: always()
