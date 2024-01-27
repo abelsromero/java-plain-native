@@ -12,7 +12,7 @@ class NoneZeroPositiveIntegerTest {
 
     @Test
     void shouldFailWithZero() {
-        var validator = new NoneZeroPositiveInteger();
+        var validator = new NoneZeroPositiveIntegerValidator();
 
         Throwable t = catchThrowable(() -> validator.validate(PARAM_NAME, "0"));
 
@@ -23,7 +23,7 @@ class NoneZeroPositiveIntegerTest {
 
     @Test
     void shouldFailWithNegativeValue() {
-        var validator = new NoneZeroPositiveInteger();
+        var validator = new NoneZeroPositiveIntegerValidator();
 
         Throwable t = catchThrowable(() -> validator.validate(PARAM_NAME, "-10"));
 
@@ -34,7 +34,7 @@ class NoneZeroPositiveIntegerTest {
 
     @Test
     void shouldValidateAPositiveValue() {
-        var validator = new NoneZeroPositiveInteger();
+        var validator = new NoneZeroPositiveIntegerValidator();
 
         validator.validate(PARAM_NAME, "42");
     }
