@@ -21,6 +21,7 @@ public class App {
         final CliOptions options = optionsHandler.parse(args);
         if (options.isHelp()) {
             optionsHandler.help(options);
+            return;
         }
 
         final Configuration config = readConfiguration(options);
