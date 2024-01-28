@@ -1,0 +1,13 @@
+= CLI args - JCommander implementation
+
+Implementation of `cli-args-api` using https://jcommander.org/[JCommander].
+
+== About natice implementation
+
+Required `reflect-config.json` for:
+
+* Project class(es) using `com.beust.jcommander.Parameter` annotation.
+* JCommander validators and converters uses.
+
+
+

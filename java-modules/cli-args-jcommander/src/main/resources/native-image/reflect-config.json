@@ -9,11 +9,6 @@
     ]
   },
   {
-    "name": "org.abelsromero.demo.CliOptions",
-    "allDeclaredFields": true,
-    "queryAllDeclaredMethods": true
-  },
-  {
     "name": "com.beust.jcommander.converters.BooleanConverter",
     "queryAllDeclaredConstructors": true,
     "methods": [
@@ -77,5 +72,10 @@
         ]
       }
     ]
+  },
+  {
+    "name": "org.abelsromero.demo.cli.impl.JCommanderOptions",
+    "allDeclaredFields": true,
+    "queryAllDeclaredMethods": true
   }
 ]
