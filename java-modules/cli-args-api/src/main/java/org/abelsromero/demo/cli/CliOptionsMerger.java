@@ -1,14 +1,14 @@
-package org.abelsromero.demo;
+package org.abelsromero.demo.cli;
 
 import org.abelsromero.demo.config.Configuration;
 import org.abelsromero.demo.config.LetterCase;
 
-final class CliOptionsMerger {
+public final class CliOptionsMerger {
 
     private CliOptionsMerger() {
     }
 
-    static Configuration merge(Configuration configuration, CliOptions options) {
+    public static Configuration merge(Configuration configuration, CliOptions options) {
         if (options.isUppercase()) {
             configuration.setLetterCase(LetterCase.UPPER);
         }

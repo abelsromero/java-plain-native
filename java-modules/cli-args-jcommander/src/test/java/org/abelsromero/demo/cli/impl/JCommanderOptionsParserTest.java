@@ -1,4 +1,4 @@
-package org.abelsromero.demo;
+package org.abelsromero.demo.cli.impl;
 
 import com.beust.jcommander.ParameterException;
 import org.junit.jupiter.api.Nested;
@@ -12,22 +12,22 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
 
-class CliOptionsParserTest {
+class JCommanderOptionsParserTest {
 
     @Test
     void shouldFailWhenNoArgsArePassed() {
-        final CliOptions options = new CliOptions();
+        final JCommanderOptions options = new JCommanderOptions();
 
-        Throwable throwable = catchThrowable(() -> new CliOptionsParser().parse(options, new String[]{}));
+        Throwable throwable = catchThrowable(() -> new JCommanderOptionsParser().parse(options, new String[]{}));
 
         assertThat(throwable).isInstanceOf(ParameterException.class);
     }
 
     @Test
     void shouldParseName() {
-        final CliOptions options = new CliOptions();
-        new CliOptionsParser()
-                .parse(options, new String[]{"-n", "Arthur"});
+        final JCommanderOptions options = new JCommanderOptions();
+        new JCommanderOptionsParser()
+            .parse(options, new String[]{"-n", "Arthur"});
 
         assertThat(options.getName()).isEqualTo("Arthur");
     }
@@ -37,18 +37,18 @@ class CliOptionsParserTest {
 
         @Test
         void shouldParseShortOption() {
-            final CliOptions options = new CliOptions();
-            new CliOptionsParser()
-                    .parse(options, minimalArgs("-u"));
+            final JCommanderOptions options = new JCommanderOptions();
+            new JCommanderOptionsParser()
+                .parse(options, minimalArgs("-u"));
 
             assertThat(options.isUppercase()).isTrue();
         }
 
         @Test
         void shouldParseLongOption() {
-            final CliOptions options = new CliOptions();
-            new CliOptionsParser()
-                    .parse(options, minimalArgs("--uppercase"));
+            final JCommanderOptions options = new JCommanderOptions();
+            new JCommanderOptionsParser()
+                .parse(options, minimalArgs("--uppercase"));
 
             assertThat(options.isUppercase()).isTrue();
         }
@@ -57,9 +57,9 @@ class CliOptionsParserTest {
     @ParameterizedTest
     @ValueSource(strings = {"-l", "--lowercase"})
     void shouldParseLowercaseOption(String option) {
-        final CliOptions options = new CliOptions();
-        new CliOptionsParser()
-                .parse(options, minimalArgs(option));
+        final JCommanderOptions options = new JCommanderOptions();
+        new JCommanderOptionsParser()
+            .parse(options, minimalArgs(option));
 
         assertThat(options.isLowercase()).isTrue();
     }
@@ -67,9 +67,9 @@ class CliOptionsParserTest {
     @ParameterizedTest
     @ValueSource(strings = {"-r", "--repeat"})
     void shouldParseRepeatOption(String option) {
-        final CliOptions options = new CliOptions();
-        new CliOptionsParser()
-                .parse(options, minimalArgs(option, "4"));
+        final JCommanderOptions options = new JCommanderOptions();
+        new JCommanderOptionsParser()
+            .parse(options, minimalArgs(option, "4"));
 
         assertThat(options.getRepeat()).isEqualTo(4);
     }
@@ -77,9 +77,9 @@ class CliOptionsParserTest {
     @ParameterizedTest
     @ValueSource(strings = {"-c", "--config-file"})
     void shouldParseConfigFileOption(String option) {
-        final CliOptions options = new CliOptions();
-        new CliOptionsParser()
-                .parse(options, minimalArgs(option, "my-settings.yaml"));
+        final JCommanderOptions options = new JCommanderOptions();
+        new JCommanderOptionsParser()
+            .parse(options, minimalArgs(option, "my-settings.yaml"));
 
         assertThat(options.getConfigFile()).isEqualTo("my-settings.yaml");
     }

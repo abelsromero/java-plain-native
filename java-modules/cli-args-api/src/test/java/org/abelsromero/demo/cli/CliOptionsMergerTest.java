@@ -1,11 +1,14 @@
-package org.abelsromero.demo;
+package org.abelsromero.demo.cli;
 
 import org.abelsromero.demo.config.Configuration;
 import org.abelsromero.demo.config.LetterCase;
 import org.abelsromero.demo.test.ReflectionMock;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import static org.abelsromero.demo.CliOptionsMerger.merge;
+import java.util.List;
+
+import static org.abelsromero.demo.cli.CliOptionsMerger.merge;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class CliOptionsMergerTest {
@@ -13,7 +16,7 @@ public class CliOptionsMergerTest {
     @Test
     void shouldReturnDefaultConfiguration() {
         final var config = Configuration.defaultConfiguration();
-        final var option = ReflectionMock.mock(new CliOptions());
+        final var option = ReflectionMock.mock(new TestOptions());
 
         Configuration configuration = merge(config, option.getInstance());
 
@@ -23,7 +26,7 @@ public class CliOptionsMergerTest {
     @Test
     void shouldMergeUpperCase() {
         final var config = Configuration.defaultConfiguration();
-        final var option = ReflectionMock.mock(new CliOptions());
+        final var option = ReflectionMock.mock(new TestOptions());
         option.mockBoolean("uppercase", true);
 
         Configuration configuration = merge(config, option.getInstance());
@@ -34,7 +37,7 @@ public class CliOptionsMergerTest {
     @Test
     void shouldMergeLowerCase() {
         final var config = Configuration.defaultConfiguration();
-        final var option = ReflectionMock.mock(new CliOptions());
+        final var option = ReflectionMock.mock(new TestOptions());
         option.mockBoolean("lowercase", true);
 
         Configuration configuration = merge(config, option.getInstance());
@@ -45,7 +48,7 @@ public class CliOptionsMergerTest {
     @Test
     void shouldMergeRepeat() {
         final var config = Configuration.defaultConfiguration();
-        final var option = ReflectionMock.mock(new CliOptions());
+        final var option = ReflectionMock.mock(new TestOptions());
         option.mockInteger("repeat", 8);
 
         Configuration configuration = merge(config, option.getInstance());
@@ -56,7 +59,7 @@ public class CliOptionsMergerTest {
     @Test
     void shouldMergeDebug() {
         final var config = Configuration.defaultConfiguration();
-        final var option = ReflectionMock.mock(new CliOptions());
+        final var option = ReflectionMock.mock(new TestOptions());
         option.mockBoolean("debug", true);
 
         Configuration configuration = merge(config, option.getInstance());
@@ -65,8 +68,60 @@ public class CliOptionsMergerTest {
     }
 
     private static void assertConfiguration(Configuration configuration, LetterCase letterCase, int repeat, boolean debug) {
-        assertThat(configuration.getLetterCase()).isEqualTo(letterCase);
-        assertThat(configuration.getRepeat()).isEqualTo(repeat);
-        assertThat(configuration.isDebug()).isEqualTo(debug);
+        Assertions.assertThat(configuration.getLetterCase()).isEqualTo(letterCase);
+        Assertions.assertThat(configuration.getRepeat()).isEqualTo(repeat);
+        Assertions.assertThat(configuration.isDebug()).isEqualTo(debug);
+    }
+
+    class TestOptions implements CliOptions {
+
+        private List<String> parameters;
+        private String name;
+        private boolean uppercase;
+        private boolean lowercase;
+        private int repeat = 1;
+        private boolean debug;
+        private boolean help;
+        private String configFile;
+
+        @Override
+        public List<String> getParameters() {
+            return parameters;
+        }
+
+        @Override
+        public String getName() {
+            return name;
+        }
+
+        @Override
+        public boolean isUppercase() {
+            return uppercase;
+        }
+
+        @Override
+        public boolean isLowercase() {
+            return lowercase;
+        }
+
+        @Override
+        public int getRepeat() {
+            return repeat;
+        }
+
+        @Override
+        public boolean isDebug() {
+            return debug;
+        }
+
+        @Override
+        public boolean isHelp() {
+            return help;
+        }
+
+        @Override
+        public String getConfigFile() {
+            return configFile;
+        }
     }
 }

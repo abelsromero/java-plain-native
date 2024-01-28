@@ -4,9 +4,10 @@ plugins {
 }
 
 dependencies {
+  implementation project(':java-modules:cli-args-api')
+  implementation project(':java-modules:cli-args-jcommander')
   implementation project(':java-modules:configuration')
   implementation project(':java-modules:logging-api')
-  implementation 'com.beust:jcommander:1.82'
   if (project.properties.getOrDefault('appLogger', 'stdout') == 'slf4j') {
     implementation project(':java-modules:logging-slf4j')
   }
