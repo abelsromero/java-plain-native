@@ -2,6 +2,9 @@ package org.abelsromero.demo.test;
 
 import java.lang.reflect.Field;
 
+/**
+ * Required to run native tests since Mockito does not support native compilation.
+ */
 public class ReflectionMock<T> {
 
     private final Object instance;

@@ -1,9 +1,7 @@
 package org.abelsromero.demo;
 
-import com.beust.jcommander.ParameterException;
 import org.abelsromero.demo.test.FilesHandler;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -16,8 +14,8 @@ import java.nio.file.Path;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.catchException;
 
-@Disabled
 public class AppTest {
 
     @TempDir
@@ -59,8 +57,9 @@ public class AppTest {
 
     @Test
     void shouldFailWhenAParameterIsInvalid() {
-        assertThatThrownBy(() -> App.main(new String[]{"-r", "-1"}))
-                .isInstanceOf(ParameterException.class);
+        Exception e = catchException(() -> App.main(new String[]{"-r", "-1"}));
+        assertThat(e.getClass().getName())
+            .isEqualTo("com.beust.jcommander.ParameterException");
     }
 
     @Test
@@ -68,6 +67,6 @@ public class AppTest {
         final Path configFile = filesHandler.createFile("config:\n  repeat: -2\n");
 
         assertThatThrownBy(() -> App.main(new String[]{"-n", "test", "-r", "2", "-c", configFile.toAbsolutePath().toString()}))
-                .isInstanceOf(IllegalArgumentException.class);
+            .isInstanceOf(IllegalArgumentException.class);
     }
 }

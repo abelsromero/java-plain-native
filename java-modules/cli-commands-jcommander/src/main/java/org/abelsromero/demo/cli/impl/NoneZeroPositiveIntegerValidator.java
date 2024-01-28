@@ -1,4 +1,4 @@
-package org.abelsromero.demo;
+package org.abelsromero.demo.cli.impl;
 
 import com.beust.jcommander.IParameterValidator;
 import com.beust.jcommander.ParameterException;

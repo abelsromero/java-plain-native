@@ -1,37 +1,40 @@
 package org.abelsromero.demo;
 
-import com.beust.jcommander.JCommander;
-import com.beust.jcommander.UnixStyleUsageFormatter;
+import org.abelsromero.demo.cli.CliOptions;
+import org.abelsromero.demo.cli.CliOptionsHandler;
+import org.abelsromero.demo.cli.impl.JCommanderOptionsHandler;
 import org.abelsromero.demo.config.Configuration;
 import org.abelsromero.demo.config.ConfigurationInitializer;
 import org.abelsromero.demo.config.ConfigurationValidator;
 import org.abelsromero.demo.logging.LoggingService;
 import org.abelsromero.demo.logging.LoggingServiceLocator;
 
-import static org.abelsromero.demo.CliOptionsMerger.merge;
+import static org.abelsromero.demo.cli.CliOptionsMerger.merge;
 
 
 public class App {
 
     public static void main(String[] args) {
-        final LoggingService innerLogger = new LoggingServiceLocator().locate(App.class);
+        // TODO make CliOptionsHandler service locator
+        final CliOptionsHandler optionsHandler = new JCommanderOptionsHandler();
 
-        final CliOptions options = new CliOptions();
-        final JCommander jc = new CliOptionsParser()
-            .parse(options, args);
-
+        final CliOptions options = optionsHandler.parse(args);
         if (options.isHelp()) {
-            jc.setUsageFormatter(new UnixStyleUsageFormatter(jc));
-            jc.usage();
-        } else {
-            final Configuration config = readConfiguration(options);
-
-            innerLogger.info(new Greeter(options.getName(), config).getMessage());
-            if (config.isDebug() && !options.getParameters().isEmpty())
-                innerLogger.info("Ignored parameters: " + options.getParameters());
+            optionsHandler.help(options);
         }
+
+        final Configuration config = readConfiguration(options);
+
+        final LoggingService innerLogger = new LoggingServiceLocator().locate(App.class);
+        innerLogger.info(new Greeter(options.getName(), config).getMessage());
+        if (config.isDebug() && !options.getParameters().isEmpty())
+            innerLogger.info("Ignored parameters: " + options.getParameters());
     }
 
+    /**
+     * Create final configuration instance.
+     * Takes into consideration: default values and option to pass YML file.
+     */
     private static Configuration readConfiguration(CliOptions options) {
         var configuration = merge(Configuration.defaultConfiguration(), options);
 

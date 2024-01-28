@@ -1,4 +1,4 @@
-package org.abelsromero.demo;
+package org.abelsromero.demo.cli.impl;
 
 import com.beust.jcommander.ParameterException;
 import org.junit.jupiter.api.Test;
@@ -17,8 +17,8 @@ class NoneZeroPositiveIntegerTest {
         Throwable t = catchThrowable(() -> validator.validate(PARAM_NAME, "0"));
 
         assertThat(t)
-                .isInstanceOf(ParameterException.class)
-                .hasMessage("Parameter repeat should be non-zero positive (found 0)");
+            .isInstanceOf(ParameterException.class)
+            .hasMessage("Parameter repeat should be non-zero positive (found 0)");
     }
 
     @Test
@@ -28,8 +28,8 @@ class NoneZeroPositiveIntegerTest {
         Throwable t = catchThrowable(() -> validator.validate(PARAM_NAME, "-10"));
 
         assertThat(t)
-                .isInstanceOf(ParameterException.class)
-                .hasMessage("Parameter repeat should be non-zero positive (found -10)");
+            .isInstanceOf(ParameterException.class)
+            .hasMessage("Parameter repeat should be non-zero positive (found -10)");
     }
 
     @Test

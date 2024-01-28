@@ -1,12 +1,13 @@
-package org.abelsromero.demo;
+package org.abelsromero.demo.cli.impl;
 
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.validators.PositiveInteger;
+import org.abelsromero.demo.cli.CliOptions;
 
 import java.util.ArrayList;
 import java.util.List;
 
-final class CliOptions {
+public final class JCommanderOptions implements CliOptions {
 
     @Parameter
     private List<String> parameters = new ArrayList<>();
@@ -32,34 +33,43 @@ final class CliOptions {
     @Parameter(names = {"-c", "--config-file"}, hidden = true, description = "Configuration file path", order = 4)
     private String configFile;
 
+    @Override
     public List<String> getParameters() {
         return parameters;
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public boolean isUppercase() {
         return uppercase;
     }
 
+    @Override
     public boolean isLowercase() {
         return lowercase;
     }
 
+    @Override
     public int getRepeat() {
         return repeat;
     }
 
+    @Override
     public boolean isDebug() {
         return debug;
     }
 
+
+    @Override
     public boolean isHelp() {
         return help;
     }
 
+    @Override
     public String getConfigFile() {
         return configFile;
     }
