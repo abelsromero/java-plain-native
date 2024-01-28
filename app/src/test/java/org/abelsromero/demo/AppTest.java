@@ -18,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.Assertions.catchException;
 
 
-@Disabled("native issues")
+//@Disabled("native issues")
 public class AppTest {
 
     @TempDir
@@ -40,7 +40,7 @@ public class AppTest {
         System.setOut(printStream);
 
         try {
-            App.main(new String[]{helpFlag});
+            App.main(new String[]{});
         } catch (RuntimeException e) {
 
         } finally {
@@ -56,6 +56,12 @@ public class AppTest {
         assertThat(outputLines[5]).contains("-r, --repeat");
         assertThat(outputLines[6]).contains("--debug");
         assertThat(outputLines[7]).contains("-h, --help");
+    }
+
+    @Test
+    void shouldRunWithDefaults() {
+        App.main(new String[]{});
+        System.out.println("123");
     }
 
     @Test
