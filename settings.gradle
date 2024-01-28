@@ -13,8 +13,8 @@ rootProject.name = 'java-plain-native'
 include \
   ':app',
   ':base',
-  ':java-modules:cli-commands-api',
-  ':java-modules:cli-commands-jcommander',
+  ':java-modules:cli-args-api',
+  ':java-modules:cli-args-jcommander',
   ':java-modules:configuration',
   ':java-modules:logging-api',
   ':java-modules:logging-slf4j',

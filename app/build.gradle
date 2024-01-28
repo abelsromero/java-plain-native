@@ -4,8 +4,8 @@ plugins {
 }
 
 dependencies {
-  implementation project(':java-modules:cli-commands-api')
-  implementation project(':java-modules:cli-commands-jcommander')
+  implementation project(':java-modules:cli-args-api')
+  implementation project(':java-modules:cli-args-jcommander')
   implementation project(':java-modules:configuration')
   implementation project(':java-modules:logging-api')
   if (project.properties.getOrDefault('appLogger', 'stdout') == 'slf4j') {

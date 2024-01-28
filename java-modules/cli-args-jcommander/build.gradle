@@ -1,4 +1,4 @@
 dependencies {
-  implementation project(':java-modules:cli-commands-api')
+  implementation project(':java-modules:cli-args-api')
   implementation 'com.beust:jcommander:1.82'
 }
