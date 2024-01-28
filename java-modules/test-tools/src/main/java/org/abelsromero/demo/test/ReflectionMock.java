@@ -27,7 +27,7 @@ public class ReflectionMock<T> {
         setValue(field, value);
     }
 
-    void mockString(String field, String value) {
+    public void mockString(String field, String value) {
         setValue(field, value);
     }
 
