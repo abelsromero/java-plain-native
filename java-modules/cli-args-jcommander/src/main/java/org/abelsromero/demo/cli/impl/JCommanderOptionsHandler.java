@@ -12,6 +12,7 @@ public class JCommanderOptionsHandler implements CliOptionsHandler {
     @Override
     public CliOptions parse(String[] args) {
         final JCommanderOptions options = new JCommanderOptions();
+
         this.jc = new JCommanderOptionsParser()
             .parse(options, args);
 

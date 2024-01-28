@@ -2,7 +2,6 @@ package org.abelsromero.demo;
 
 import org.abelsromero.demo.test.FilesHandler;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -18,8 +17,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.Assertions.catchException;
 
 
-//@Disabled("native issues")
-public class AppTest {
+class AppTest {
 
     @TempDir
     private static Path tempDir;
@@ -40,7 +38,7 @@ public class AppTest {
         System.setOut(printStream);
 
         try {
-            App.main(new String[]{});
+            App.main(new String[]{helpFlag});
         } catch (RuntimeException e) {
 
         } finally {
@@ -56,12 +54,6 @@ public class AppTest {
         assertThat(outputLines[5]).contains("-r, --repeat");
         assertThat(outputLines[6]).contains("--debug");
         assertThat(outputLines[7]).contains("-h, --help");
-    }
-
-    @Test
-    void shouldRunWithDefaults() {
-        App.main(new String[]{});
-        System.out.println("123");
     }
 
     @Test
