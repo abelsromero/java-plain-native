@@ -65,10 +65,7 @@ public class AppTest {
 
     @Test
     void shouldFailWhenRepeatIsOverriddenFromConfigWithAnInvalidValue() throws IOException {
-        final Path configFile = filesHandler.createFile("""
-                config:
-                  repeat: -2
-                """);
+        final Path configFile = filesHandler.createFile("config:\n  repeat: -2\n");
 
         assertThatThrownBy(() -> App.main(new String[]{"-n", "test", "-r", "2", "-c", configFile.toAbsolutePath().toString()}))
                 .isInstanceOf(IllegalArgumentException.class);
