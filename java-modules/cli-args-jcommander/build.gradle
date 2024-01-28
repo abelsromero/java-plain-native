@@ -6,3 +6,11 @@ dependencies {
   implementation project(':java-modules:cli-args-api')
   implementation 'com.beust:jcommander:1.82'
 }
+
+graalvmNative {
+  binaries {
+    main {
+      mainClass = 'org.abelsromero.demo.cli.impl.DemoRunner'
+    }
+  }
+}
