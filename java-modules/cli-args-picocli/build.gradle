@@ -1,0 +1,22 @@
+plugins {
+  id 'org.graalvm.buildtools.native'
+}
+
+dependencies {
+  implementation project(':java-modules:cli-args-api')
+  implementation 'info.picocli:picocli:4.7.5'
+  annotationProcessor 'info.picocli:picocli-codegen:4.7.5'
+}
+
+compileJava {
+  // Stores reachability metadata under "group/name" directory
+  options.compilerArgs += ["-Aproject=${project.group}/${project.name}"]
+}
+
+graalvmNative {
+  binaries {
+    main {
+      mainClass = 'org.abelsromero.demo.cli.impl.DemoRunner'
+    }
+  }
+}
