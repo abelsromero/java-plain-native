@@ -9,7 +9,7 @@ Experimental repo to assess complexity of building a native image only using 'or
 
 . Install Graal (using Liberica NIK to simplify steps)
 
- sdk i java 22.3.2.r17-nik
+ sdk i java 22.3.5.r17-nik
 
 . Create Gradle project
 
