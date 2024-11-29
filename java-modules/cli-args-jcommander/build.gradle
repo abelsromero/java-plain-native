@@ -4,7 +4,7 @@ plugins {
 
 dependencies {
   implementation project(':java-modules:cli-args-api')
-  implementation 'com.beust:jcommander:1.82'
+  implementation 'org.jcommander:jcommander:2.0'
 }
 
 graalvmNative {
