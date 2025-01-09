@@ -51,3 +51,12 @@ Agent can be run with `./gradlew -Pagent :java-modules:cli-args-jcommander:nativ
 
 * As of date 5/10/23 logback-classic up v1.4.8 works.
 v1.4.9 has https://github.com/oracle/graalvm-reachability-metadata/blob/master/metadata/ch.qos.logback/logback-classic/1.4.9/[metadata] but it does not work (binary is small and logs don't show).
+
+
+== Static compilation
+
+Install musl
+
+Create file
+  ln -s /usr/bin/musl-gcc x86_64-linux-musl-gcc
+

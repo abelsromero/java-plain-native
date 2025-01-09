@@ -25,6 +25,7 @@ graalvmNative {
   binaries {
     main {
       mainClass = application.mainClass
+      buildArgs.addAll("--static", "--libc=musl")
     }
   }
   if (project.properties.get('gc')) {
