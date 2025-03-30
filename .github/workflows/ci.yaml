@@ -68,7 +68,7 @@ jobs:
           fetch-depth: 1
       - uses: graalvm/setup-graalvm@v1
         with:
-          java-version: '23.0.1'
+          java-version: '23.0.2'
           distribution: 'graalvm-community'
       - name: Gradle env
         run: ./gradlew -version
@@ -103,7 +103,7 @@ jobs:
           fetch-depth: 1
       - uses: graalvm/setup-graalvm@v1
         with:
-          java-version: '23.0.1'
+          java-version: '23.0.2'
           distribution: 'graalvm-community'
       - uses: actions/setup-go@v5
         with:
