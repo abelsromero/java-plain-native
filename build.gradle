@@ -18,7 +18,6 @@ subprojects {
   }
 
   java {
-    sourceCompatibility = '17'
     toolchain {
       languageVersion = JavaLanguageVersion.of(17)
     }
@@ -31,7 +30,7 @@ subprojects {
   tasks.register("copyReportsToParent", Copy) {
     group 'Reporting'
     dependsOn tasks.named('test')
-    from "${buildDir}/reports"
+    from "${project.buildDir}/reports"
     into "${parent.buildDir}/reports/${project.name}"
   }
 }
