@@ -1,7 +1,3 @@
-plugins {
-  id 'org.graalvm.buildtools.native'
-}
-
 dependencies {
   implementation project(':java-modules:logging-api')
   if (project.properties.getOrDefault('appLogger', 'stdout') == 'slf4j') {
