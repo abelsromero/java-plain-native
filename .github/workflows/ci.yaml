@@ -7,6 +7,10 @@ on:
     branches:
       - main
 
+env:
+  GRAAL_VERSION: 23.0.2
+  OS_IMAGE: ubuntu-latest
+
 jobs:
   build-jvm:
     name: Build JVM
@@ -19,7 +23,7 @@ jobs:
           - 17
           - 21
         os:
-          - ubuntu-latest
+          - ${{ env.OS_IMAGE }}
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
@@ -60,7 +64,7 @@ jobs:
       max-parallel: 4
       matrix:
         os:
-          - ubuntu-latest
+          - ${{ env.OS_IMAGE }}
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
@@ -68,7 +72,7 @@ jobs:
           fetch-depth: 1
       - uses: graalvm/setup-graalvm@v1
         with:
-          java-version: '23.0.2'
+          java-version: ${{ env.GRAAL_VERSION }}
           distribution: 'graalvm-community'
       - name: Gradle env
         run: ./gradlew -version
@@ -95,7 +99,7 @@ jobs:
       max-parallel: 4
       matrix:
         os:
-          - ubuntu-latest
+          - ${{ env.OS_IMAGE }}
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
@@ -103,7 +107,7 @@ jobs:
           fetch-depth: 1
       - uses: graalvm/setup-graalvm@v1
         with:
-          java-version: '23.0.2'
+          java-version: ${{ env.GRAAL_VERSION }}
           distribution: 'graalvm-community'
       - uses: actions/setup-go@v5
         with:
