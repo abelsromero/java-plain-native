@@ -8,8 +8,8 @@ on:
       - main
 
 env:
-  GRAAL_VERSION: 23.0.2
-  OS_IMAGE: ubuntu-latest
+  DEFAULT_OS: ubuntu-latest
+  GRAALVM_VERSION: '23.0.2'
 
 jobs:
   build-jvm:
@@ -23,7 +23,7 @@ jobs:
           - 17
           - 21
         os:
-          - ${{ env.OS_IMAGE }}
+          - ${{ env.DEFAULT_OS }}
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
@@ -64,7 +64,7 @@ jobs:
       max-parallel: 4
       matrix:
         os:
-          - ${{ env.OS_IMAGE }}
+          - ${{ env.DEFAULT_OS }}
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
@@ -72,7 +72,7 @@ jobs:
           fetch-depth: 1
       - uses: graalvm/setup-graalvm@v1
         with:
-          java-version: ${{ env.GRAAL_VERSION }}
+          java-version: ${{ env.GRAALVM_VERSION }}
           distribution: 'graalvm-community'
       - name: Gradle env
         run: ./gradlew -version
@@ -87,7 +87,7 @@ jobs:
         uses: actions/upload-artifact@v4
         env:
           os_name: ${{ matrix.os }}
-          java_version: ${{ matrix.java }}
+          java_version: ${{ env.GRAALVM_VERSION }}
         if: always()
         with:
           name: reports-${{ env.os_name }}-${{ env.java_version }}
@@ -99,7 +99,7 @@ jobs:
       max-parallel: 4
       matrix:
         os:
-          - ${{ env.OS_IMAGE }}
+          - ${{ env.DEFAULT_OS }}
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
@@ -107,7 +107,7 @@ jobs:
           fetch-depth: 1
       - uses: graalvm/setup-graalvm@v1
         with:
-          java-version: ${{ env.GRAAL_VERSION }}
+          java-version: ${{ env.GRAALVM_VERSION }}
           distribution: 'graalvm-community'
       - uses: actions/setup-go@v5
         with:
