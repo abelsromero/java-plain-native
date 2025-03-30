@@ -77,7 +77,7 @@ jobs:
       - name: Build binary
         run: ./gradlew :cli:java:nativeCompile
       - name: Collect reports
-        run: ./gradlew copyReportsToParent
+        run: ./gradlew -version && echo "\n$JAVA_HOME\n" && ./gradlew copyReportsToParent
         if: always()
       - name: Upload reports
         uses: actions/upload-artifact@v4
