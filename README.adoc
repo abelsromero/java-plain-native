@@ -9,7 +9,7 @@ Experimental repo to assess complexity of building a native image only using 'or
 
 . Install Graal (using Liberica NIK to simplify steps)
 
- sdk i java 22.3.5.r17-nik
+ sdk i java 24.0.0-graalce
 
 . Create Gradle project
 
@@ -23,7 +23,7 @@ Experimental repo to assess complexity of building a native image only using 'or
 
 . Run 🚀
 
- ./app/build/native/nativeCompile/my-app
+ ./app/build/native/nativeCompile/app
 
 NOTE: 'app' module also includes 'application' to generate runnable distributions, but that's not required for the native build.
 
