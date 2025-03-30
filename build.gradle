@@ -20,7 +20,7 @@ subprojects {
   java {
     sourceCompatibility = '17'
     toolchain {
-      languageVersion = JavaLanguageVersion.of(17)
+      languageVersion = JavaLanguageVersion.of(24)
     }
   }
 
