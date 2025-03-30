@@ -30,8 +30,8 @@ subprojects {
   tasks.register("copyReportsToParent", Copy) {
     group 'Reporting'
     dependsOn tasks.named('test')
-    from "${buildDir}/reports"
-    into "${parent.buildDir}/reports/${project.name}"
+    from layout.buildDirectory.dir('reports')
+    into rootProject.layout.buildDirectory.dir("reports/${project.name}")
   }
 }
 
