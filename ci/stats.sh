@@ -78,7 +78,10 @@ collect_stats() {
 
   # Handled as independent project for https://github.com/graalvm/native-build-tools/issues/70
   (cd "$base_path/spring-boot-cli" && ./gradlew nativeCompile)
-  add_stats "spring-boot" "$base_path/spring-boot-cli/build/native/nativeCompile/spring-boot-cli"
+  add_stats "spring-boot-cli" "$base_path/spring-boot-cli/build/native/nativeCompile/spring-boot-cli"
+
+  (cd "$base_path/spring-boot-shell" && ./gradlew nativeCompile)
+  add_stats "spring-boot-shell" "$base_path/spring-boot-shell/build/native/nativeCompile/spring-boot-shell"
 
   (cd "$base_path/quarkus-cli" && ./gradlew build -Dquarkus.package.type=native)
   add_stats "quarkus" "$base_path/quarkus-cli/build/quarkus-cli-1.0.0-SNAPSHOT-runner"
