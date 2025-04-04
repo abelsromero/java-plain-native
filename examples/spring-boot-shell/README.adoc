@@ -1,0 +1,4 @@
+= Spring Boot Shell
+
+Full CLI implementation with similar feature to the 'app' reference.
+The goal is to see build complexity and binary size of a real use case where ease of development and OOB SpringBoot features are prioritized.

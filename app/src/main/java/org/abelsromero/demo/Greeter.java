@@ -2,6 +2,7 @@ package org.abelsromero.demo;
 
 import org.abelsromero.demo.config.Configuration;
 
+import java.util.Locale;
 import java.util.StringJoiner;
 
 public class Greeter {
@@ -21,10 +22,10 @@ public class Greeter {
         String message = String.format(TEMPLATE, name);
         switch (options.getLetterCase()) {
             case UPPER:
-                message = message.toUpperCase();
+                message = message.toUpperCase(Locale.ROOT);
                 break;
             case LOWER:
-                message = message.toLowerCase();
+                message = message.toLowerCase(Locale.ROOT);
                 break;
         }
 
