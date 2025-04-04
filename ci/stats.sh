@@ -27,7 +27,7 @@ run_gradle() {
 
 print_stats() {
   echo "== STATS"
-  echo -e "module\t\tsize(Mb) size(no gc)\tdif(Mb)"
+  awk 'BEGIN { printf "%-20s %-12s %-15s %-10s\n", "module", "size(Mb)", "size(no gc)", "dif(Mb)" }'
   for value in "${STATS[@]}"; do
     read -r -a arr <<< "$value"
     size_mb=$(echo "scale=2; ${arr[1]}/1048576" | bc)
@@ -38,9 +38,7 @@ print_stats() {
       size_nogc_mb="n/a"
       diff="n/a"
     fi
-    local column_separator="\t\t"
-    [ ${#arr[0]} -gt 8 ] && column_separator="\t"
-    echo -e "${arr[0]}${column_separator}${size_mb}\t ${size_nogc_mb}\t\t${diff}"
+    awk -v a="${arr[0]}" -v b="${size_mb}" -v c="${size_nogc_mb}" -v d="${diff}" 'BEGIN { printf "%-20s %-10s %-10s %-10s\n", a, b, c, d }'
   done
 }
 
@@ -83,8 +81,8 @@ collect_stats() {
   (cd "$base_path/spring-boot-shell" && ./gradlew nativeCompile)
   add_stats "spring-boot-shell" "$base_path/spring-boot-shell/build/native/nativeCompile/spring-boot-shell"
 
-  (cd "$base_path/quarkus-cli" && ./gradlew build -Dquarkus.package.type=native)
-  add_stats "quarkus" "$base_path/quarkus-cli/build/quarkus-cli-1.0.0-SNAPSHOT-runner"
+#  (cd "$base_path/quarkus-cli" && ./gradlew build -Dquarkus.package.type=native)
+#  add_stats "quarkus" "$base_path/quarkus-cli/build/quarkus-cli-1.0.0-SNAPSHOT-runner"
 }
 
 main() {
