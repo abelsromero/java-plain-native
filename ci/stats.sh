@@ -27,20 +27,14 @@ run_gradle() {
 
 print_stats() {
   echo "== STATS"
-  echo -e "module\t\tsize(Mb) size(no gc)\tdif(Mb)"
+  awk 'BEGIN { printf "%-20s %10s %15s %10s\n", "module", "size(Mb)", "size(no gc)", "dif(Mb)" }'
   for value in "${STATS[@]}"; do
     read -r -a arr <<< "$value"
-    size_mb=$(echo "scale=2; ${arr[1]}/1048576" | bc)
     if [ ${#arr[@]} -eq 3 ]; then
-      size_nogc_mb=$(echo "scale=2; ${arr[2]}/1048576" | bc)
-      diff=$(echo "scale=2; (${arr[1]}-${arr[2]})/1048576" | bc)
+      awk -v a="${arr[0]}" -v b="${arr[1]}" -v c="${arr[2]}" 'BEGIN { printf "%-20s %10.2f %15.2f %10.2fs\n", a, b/1048576, c/1048576, (b-c)/1048576 }'
     else
-      size_nogc_mb="n/a"
-      diff="n/a"
+      awk -v a="${arr[0]}" -v b="${arr[1]}" 'BEGIN { printf "%-20s %10.2f %15s %10s\n", a, b/1048576, "n/a", "n/a" }'
     fi
-    local column_separator="\t\t"
-    [ ${#arr[0]} -gt 8 ] && column_separator="\t"
-    echo -e "${arr[0]}${column_separator}${size_mb}\t ${size_nogc_mb}\t\t${diff}"
   done
 }
 
