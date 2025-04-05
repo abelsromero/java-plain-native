@@ -1,0 +1,14 @@
+logging:
+  level:
+    root: Off
+spring:
+  main:
+    banner-mode: off
+  shell:
+    interactive:
+      enabled: true
+    command:
+      history:
+        enabled: false
+      script:
+        enabled: false
