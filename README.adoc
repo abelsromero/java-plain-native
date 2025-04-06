@@ -5,6 +5,21 @@ Experimental repo to assess complexity of building a native image only using 'or
 
 // diary https://twitter.com/abelsromero/status/1675556510976335872
 
+== Examples
+
+This project contains several examples to see compilation methods, ease of development, build size and build time.
+While it contains several languages, the main focus is Java.
+
+Experiments are organized in two sets:
+
+* `cli` simple CLI for text formatting.
+
+* `hello-world` folder contains examples of the simples application possible.
+In some cases there's some extra functionality.
+But that's minimal and does not use external libraries.
+
+* `java-modules` libraries for the cli app.
+
 == Setup
 
 . Install Graal (using Liberica NIK to simplify steps)

@@ -53,11 +53,11 @@ collect_stats() {
   STATS[0]="${STATS[0]} $(stat --printf="%s" "base/build/native/nativeCompile/base")"
   STATS[1]="${STATS[1]} $(stat --printf="%s" "app/build/native/nativeCompile/app")"
 
-  local -r module="app"
+  local -r module="cli"
   ./gradlew -PappLogger=slf4j ":$module:nativeCompile"
   add_stats "app(slf4j)" "$module/build/native/nativeCompile/app"
 
-  local -r base_path="examples"
+  local -r base_path="hello-world"
   make -C "$base_path/c"
   add_stats "c" "$base_path/c/hello"
 
