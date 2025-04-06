@@ -3,6 +3,6 @@
 build
 target
 #examples binaries
-examples/c/hello
-examples/cpp/hello
-examples/go/hello/hello
+hello-world/c/hello
+hello-world/cpp/hello
+hello-world/go/hello/hello
