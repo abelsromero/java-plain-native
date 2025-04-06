@@ -107,7 +107,7 @@ jobs:
           distribution: 'graalvm-community'
       - uses: actions/setup-go@v5
         with:
-          go-version: '>=1.21'
+          go-version: '>=1.24'
       - name: Update local Rust toolchain
         run: |
           rustup update
