@@ -75,7 +75,7 @@ jobs:
       - name: Test
         run: ./gradlew nativeTest
       - name: Build binary
-        run: ./gradlew :app:nativeCompile
+        run: ./gradlew :cli:java:nativeCompile
       - name: Collect reports
         run: ./gradlew copyReportsToParent
         if: always()
