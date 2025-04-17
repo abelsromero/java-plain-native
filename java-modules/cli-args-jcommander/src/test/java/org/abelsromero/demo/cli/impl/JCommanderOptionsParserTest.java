@@ -1,6 +1,6 @@
 package org.abelsromero.demo.cli.impl;
 
-import org.junit.jupiter.api.Nested;
+import org.abelsromero.demo.cli.OutputFormat;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -22,26 +22,14 @@ class JCommanderOptionsParserTest {
         assertThat(options.getName()).isEqualTo("Arthur");
     }
 
-    @Nested
-    class WhenParsingUppercaseOption {
+    @ParameterizedTest
+    @ValueSource(strings = {"-u", "--uppercase"})
+    void shouldParseUppercaseOption(String option) {
+        final JCommanderOptions options = new JCommanderOptions();
+        new JCommanderOptionsParser()
+                .parse(options, minimalArgs(option));
 
-        @Test
-        void shouldParseShortOption() {
-            final JCommanderOptions options = new JCommanderOptions();
-            new JCommanderOptionsParser()
-                    .parse(options, minimalArgs("-u"));
-
-            assertThat(options.isUppercase()).isTrue();
-        }
-
-        @Test
-        void shouldParseLongOption() {
-            final JCommanderOptions options = new JCommanderOptions();
-            new JCommanderOptionsParser()
-                    .parse(options, minimalArgs("--uppercase"));
-
-            assertThat(options.isUppercase()).isTrue();
-        }
+        assertThat(options.isUppercase()).isTrue();
     }
 
     @ParameterizedTest
@@ -62,6 +50,16 @@ class JCommanderOptionsParserTest {
                 .parse(options, minimalArgs(option, "4"));
 
         assertThat(options.getRepeat()).isEqualTo(4);
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"-o", "--output"})
+    void shouldParseOutputFormat(String option) {
+        final JCommanderOptions options = new JCommanderOptions();
+        new JCommanderOptionsParser()
+            .parse(options, minimalArgs(option, "json"));
+
+        assertThat(options.getOutputFormat()).isEqualTo(OutputFormat.JSON);
     }
 
     @ParameterizedTest

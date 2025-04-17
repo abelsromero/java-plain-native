@@ -52,8 +52,9 @@ class AppTest {
         assertThat(outputLines[3]).contains("-u, --uppercase");
         assertThat(outputLines[4]).contains("-l, --lowercase");
         assertThat(outputLines[5]).contains("-r, --repeat");
-        assertThat(outputLines[6]).contains("--debug");
-        assertThat(outputLines[7]).contains("-h, --help");
+        assertThat(outputLines[6]).contains("-o, --output    Output format (default: text) (values: [text, json])");
+        assertThat(outputLines[7]).contains("--debug");
+        assertThat(outputLines[8]).contains("-h, --help");
     }
 
     @Test

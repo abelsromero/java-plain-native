@@ -1,0 +1,4 @@
+dependencies {
+  implementation project(':java-modules:cli-args-api')
+  implementation("com.fasterxml.jackson.core:jackson-databind:2.18.3")
+}

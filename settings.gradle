@@ -19,5 +19,6 @@ include \
   ':java-modules:configuration',
   ':java-modules:logging-api',
   ':java-modules:logging-slf4j',
+  ':java-modules:output-formatting',
   ':java-modules:process',
   ':java-modules:test-tools'
