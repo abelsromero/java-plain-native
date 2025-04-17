@@ -31,6 +31,10 @@ public class ReflectionMock<T> {
         setValue(field, value);
     }
 
+    public void mockValue(String field, Object value) {
+        setValue(field, value);
+    }
+
     private void setValue(String field, Object value) {
         try {
             final Field declaredField = clazz.getDeclaredField(field);
@@ -44,4 +48,5 @@ public class ReflectionMock<T> {
     public T getInstance() {
         return (T) instance;
     }
+
 }

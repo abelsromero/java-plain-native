@@ -1,0 +1,14 @@
+{
+  "reflection": [
+    {
+      "type": "org.abelsromero.demo.json.JsonMessage",
+      "allDeclaredFields": true,
+      "methods": [
+        {
+          "name": "message",
+          "parameterTypes": []
+        }
+      ]
+    }
+  ]
+}

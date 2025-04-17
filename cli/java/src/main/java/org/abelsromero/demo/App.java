@@ -6,6 +6,7 @@ import org.abelsromero.demo.cli.impl.JCommanderOptionsHandler;
 import org.abelsromero.demo.config.Configuration;
 import org.abelsromero.demo.config.ConfigurationInitializer;
 import org.abelsromero.demo.config.ConfigurationValidator;
+import org.abelsromero.demo.json.MessageFormatter;
 import org.abelsromero.demo.logging.LoggingService;
 import org.abelsromero.demo.logging.LoggingServiceLocator;
 
@@ -27,7 +28,11 @@ public class App {
         final Configuration config = readConfiguration(options);
 
         final LoggingService innerLogger = new LoggingServiceLocator().locate(App.class);
-        innerLogger.info(new Greeter(options.getName(), config).getMessage());
+
+        String message = new Greeter(options.getName(), config).getMessage();
+        message = new MessageFormatter().format(message, options.getOutputFormat());
+
+        innerLogger.info(message);
         if (config.isDebug() && !options.getParameters().isEmpty())
             innerLogger.info("Ignored parameters: " + options.getParameters());
     }

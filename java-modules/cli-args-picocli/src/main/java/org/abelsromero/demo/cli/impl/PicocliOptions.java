@@ -1,6 +1,7 @@
 package org.abelsromero.demo.cli.impl;
 
 import org.abelsromero.demo.cli.CliOptions;
+import org.abelsromero.demo.cli.OutputFormat;
 import picocli.CommandLine;
 
 import java.util.ArrayList;
@@ -23,10 +24,13 @@ public class PicocliOptions implements CliOptions {
     @CommandLine.Option(names = {"-r", "--repeat"}, description = "Greet many times", order = 4)
     private int repeat = 1;
 
-    @CommandLine.Option(names = "--debug", description = "Debug mode", order = 5)
+    @CommandLine.Option(names = {"-o", "--output"}, description = "Output format", order = 5)
+    private OutputFormat output = OutputFormat.TEXT;
+
+    @CommandLine.Option(names = "--debug", description = "Debug mode", order = 6)
     private boolean debug = false;
 
-    @CommandLine.Option(names = {"-h", "--help"}, usageHelp = true, description = "Show this message", order = 6)
+    @CommandLine.Option(names = {"-h", "--help"}, usageHelp = true, description = "Show this message", order = 7)
     private boolean help = false;
 
     @CommandLine.Option(names = {"-c", "--config-file"}, hidden = true, description = "Configuration file path", order = 4)
@@ -61,6 +65,11 @@ public class PicocliOptions implements CliOptions {
     @Override
     public boolean isDebug() {
         return debug;
+    }
+
+    @Override
+    public OutputFormat getOutputFormat() {
+        return output;
     }
 
     @Override

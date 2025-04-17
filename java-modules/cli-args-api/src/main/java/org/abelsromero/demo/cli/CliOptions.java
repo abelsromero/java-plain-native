@@ -19,6 +19,8 @@ public interface CliOptions {
 
     boolean isDebug();
 
+    OutputFormat getOutputFormat();
+
     boolean isHelp();
 
     String getConfigFile();

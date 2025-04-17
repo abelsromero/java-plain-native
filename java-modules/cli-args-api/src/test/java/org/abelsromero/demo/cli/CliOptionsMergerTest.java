@@ -115,6 +115,11 @@ public class CliOptionsMergerTest {
         }
 
         @Override
+        public OutputFormat getOutputFormat() {
+            return null;
+        }
+
+        @Override
         public boolean isHelp() {
             return help;
         }

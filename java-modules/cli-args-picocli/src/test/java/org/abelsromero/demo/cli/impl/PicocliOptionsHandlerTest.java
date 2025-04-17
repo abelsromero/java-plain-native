@@ -2,6 +2,7 @@ package org.abelsromero.demo.cli.impl;
 
 import org.abelsromero.demo.cli.CliOptions;
 import org.abelsromero.demo.cli.CliOptionsHandler;
+import org.abelsromero.demo.cli.OutputFormat;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -69,28 +70,15 @@ class PicocliOptionsHandlerTest {
             assertThat(options.getName()).isEqualTo("Arthur");
         }
 
-        @Nested
-        class WhenParsingUppercaseOption {
+        @ParameterizedTest
+        @ValueSource(strings = {"-u", "--uppercase"})
+        void shouldParseUppercaseOption(String option) {
+            final CliOptionsHandler optionsHandler = new PicocliOptionsHandler();
+            final String[] args = minimalArgs(option);
 
-            @Test
-            void shouldParseShortOption() {
-                final CliOptionsHandler optionsHandler = new PicocliOptionsHandler();
-                final String[] args = minimalArgs("-u");
+            CliOptions options = optionsHandler.parse(args);
 
-                CliOptions options = optionsHandler.parse(args);
-
-                assertThat(options.isUppercase()).isTrue();
-            }
-
-            @Test
-            void shouldParseLongOption() {
-                final CliOptionsHandler optionsHandler = new PicocliOptionsHandler();
-                final String[] args = minimalArgs("--uppercase");
-
-                CliOptions options = optionsHandler.parse(args);
-
-                assertThat(options.isUppercase()).isTrue();
-            }
+            assertThat(options.isUppercase()).isTrue();
         }
 
         @ParameterizedTest
@@ -113,6 +101,17 @@ class PicocliOptionsHandlerTest {
             CliOptions options = optionsHandler.parse(args);
 
             assertThat(options.getRepeat()).isEqualTo(4);
+        }
+
+        @ParameterizedTest
+        @ValueSource(strings = {"-o", "--output"})
+        void shouldParseOutputFormat(String option) {
+            final CliOptionsHandler optionsHandler = new PicocliOptionsHandler();
+            final String[] args = minimalArgs(option, "json");
+
+            CliOptions options = optionsHandler.parse(args);
+
+            assertThat(options.getOutputFormat()).isEqualTo(OutputFormat.JSON);
         }
 
         @ParameterizedTest
