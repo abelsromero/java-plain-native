@@ -58,7 +58,10 @@ collect_stats() {
   STATS[1]="${STATS[1]} $(stat --printf="%s" "$clis_path/java/$java_build/java")"
 
   ./gradlew -PappLogger=slf4j ":$clis_path:java:nativeCompile"
-  add_stats "cli(slf4j)" "$clis_path/java/$java_build/java"
+  add_stats "cli(slf4j)" "$clis_path/java/$java_build/cli"
+
+  (cd "$clis_path/spring-boot" && ./gradlew "nativeCompile")
+  add_stats "cli(spring-boot)" "$clis_path/spring-boot/$java_build/cli"
 
   make -C "$helloworlds_path/c"
   add_stats "c" "$helloworlds_path/c/hello"
