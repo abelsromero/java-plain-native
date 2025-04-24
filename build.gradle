@@ -4,8 +4,6 @@ plugins {
 }
 
 subprojects {
-//  .findAll { it.name != 'spring-boot' }
-//  .each {
   apply plugin: 'java'
 
   repositories {

@@ -1,10 +1,13 @@
 package org.abelsromero.demo.sb;
 
+import org.abelsromero.demo.sb.args.ArgumentsParser;
+import org.abelsromero.demo.sb.args.CliOptions;
 import org.abelsromero.demo.sb.json.MessageFormatter;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.util.StringUtils;
 
 @SpringBootApplication
 public class SpringBootCliApplication implements ApplicationRunner {
@@ -23,10 +26,16 @@ public class SpringBootCliApplication implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        final String name = argumentsParser.extractName(args);
+        final CliOptions options = argumentsParser.parse(args);
 
-        String message = String.format("Hello %s!", name.length() == 0 ? "World" : name);
-        message = messageFormatter.format(message);
+        String message = String.format("Hello %s!", StringUtils.hasLength(options.name()) ? options.name() : "World");
+
+        if (options.outputFormat() != null) {
+            message = switch (options.outputFormat()) {
+                case JSON -> messageFormatter.format(message);
+                default -> message;
+            };
+        }
 
         System.out.println(message);
     }

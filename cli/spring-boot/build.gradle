@@ -29,3 +29,11 @@ dependencies {
 tasks.named('test') {
   useJUnitPlatform()
 }
+
+graalvmNative {
+  binaries {
+    main {
+      imageName = 'cli'
+    }
+  }
+}
