@@ -25,6 +25,7 @@ tasks.named('test') {
 graalvmNative {
   binaries {
     main {
+      imageName = 'cli'
       mainClass = application.mainClass
     }
   }

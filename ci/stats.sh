@@ -51,14 +51,17 @@ collect_stats() {
 
   run_gradle "nativeCompile"
   STATS[0]="${STATS[0]} $(stat --printf="%s" "$helloworlds_path/java/$java_build/java")"
-  STATS[1]="${STATS[1]} $(stat --printf="%s" "$clis_path/java/$java_build/java")"
+  STATS[1]="${STATS[1]} $(stat --printf="%s" "$clis_path/java/$java_build/cli")"
 
   run_gradle "nativeCompile" "-Pgc=epsilon"
   STATS[0]="${STATS[0]} $(stat --printf="%s" "$helloworlds_path/java/$java_build/java")"
-  STATS[1]="${STATS[1]} $(stat --printf="%s" "$clis_path/java/$java_build/java")"
+  STATS[1]="${STATS[1]} $(stat --printf="%s" "$clis_path/java/$java_build/cli")"
 
   ./gradlew -PappLogger=slf4j ":$clis_path:java:nativeCompile"
-  add_stats "cli(slf4j)" "$clis_path/java/$java_build/java"
+  add_stats "cli(slf4j)" "$clis_path/java/$java_build/cli"
+
+  (cd "$clis_path/spring-boot" && ./gradlew "nativeCompile")
+  add_stats "cli(spring-boot)" "$clis_path/spring-boot/$java_build/cli"
 
   make -C "$helloworlds_path/c"
   add_stats "c" "$helloworlds_path/c/hello"

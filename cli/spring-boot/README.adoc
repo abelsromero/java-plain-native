@@ -1,0 +1,15 @@
+= Spring Boot CLI example
+
+== Building
+
+ cd cli/java/spring-boot
+ ./gradlew nativeCompile
+
+
+== Usage
+
+ cli --name=Me --output=[json,text]
+
+All options are optional.
+    --name: (default: World)
+    --output: (default: text)
