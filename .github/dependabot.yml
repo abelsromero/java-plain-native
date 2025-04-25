@@ -13,6 +13,12 @@ updates:
     labels:
       - "dependencies"
   - package-ecosystem: "gradle"
+    directory: "/cli/spring-boot"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "dependencies"
+  - package-ecosystem: "gradle"
     directory: "/examples/quarkus-cli"
     schedule:
       interval: "weekly"
