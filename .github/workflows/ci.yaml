@@ -74,8 +74,11 @@ jobs:
         run: ./gradlew -version
       - name: Test
         run: ./gradlew nativeTest
-      - name: Build binary
+      - name: Build Java CLI
         run: ./gradlew :cli:java:nativeCompile
+      - name: Build Spring Boot CLI
+        working-directory: cli/spring-boot
+        run: ./gradlew nativeCompile
       - name: Collect reports
         run: ./gradlew copyReportsToParent
         if: always()
