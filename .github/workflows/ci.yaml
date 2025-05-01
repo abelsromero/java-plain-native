@@ -68,7 +68,7 @@ jobs:
           fetch-depth: 1
       - uses: graalvm/setup-graalvm@v1
         with:
-          java-version: '23.0.2'
+          java-version: '24.0.0'
           distribution: 'graalvm-community'
       - name: Gradle env
         run: ./gradlew -version
@@ -80,7 +80,7 @@ jobs:
         working-directory: cli/spring-boot
         run: ./gradlew nativeCompile
       - name: Collect reports
-        run: ./gradlew copyReportsToParent
+        run: ./gradlew -version && echo "$JAVA_HOME" && ./gradlew copyReportsToParent
         if: always()
       - name: Upload reports
         uses: actions/upload-artifact@v4
@@ -106,7 +106,7 @@ jobs:
           fetch-depth: 1
       - uses: graalvm/setup-graalvm@v1
         with:
-          java-version: '23.0.2'
+          java-version: '24.0.0'
           distribution: 'graalvm-community'
       - uses: actions/setup-go@v5
         with:

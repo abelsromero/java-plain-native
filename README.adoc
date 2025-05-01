@@ -24,7 +24,7 @@ But that's minimal and does not use external libraries.
 
 . Install Graal (using Liberica NIK to simplify steps)
 
- sdk i java 23.0.2-graalce
+ sdk i java 24.0.0-graalce
 
 . Create Gradle project
 
