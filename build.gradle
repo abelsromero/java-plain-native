@@ -14,7 +14,7 @@ subprojects {
     testImplementation project(':java-modules:test-tools')
     testImplementation platform('org.junit:junit-bom:5.11.3')
     testImplementation "org.junit.jupiter:junit-jupiter"
-    testImplementation 'org.assertj:assertj-core:3.27.3'
+    testImplementation 'org.assertj:assertj-core:3.27.4'
   }
 
   java {
